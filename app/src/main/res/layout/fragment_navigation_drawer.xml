@@ -1,0 +1,52 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:background="@color/green">
+
+        <ImageView
+            android:id="@+id/profile_picture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/profile_picture"/>
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/profile_picture"
+            android:textSize="@dimen/sizeMediumText"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:text="My name"/>
+
+        <TextView
+            android:id="@+id/user_mail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/profile_picture"
+            android:layout_below="@+id/user_name"
+            android:textSize="@dimen/sizeNormalText"
+            android:textColor="#FFFFFF"
+            android:text="My email"/>
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/drawer_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:choiceMode="singleChoice"
+        android:background="#0022394a"
+        android:divider="@null"
+        tools:context="com.sellcom.tracker.NavigationDrawerFragment"/>
+
+</LinearLayout>
