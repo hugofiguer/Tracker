@@ -22,5 +22,13 @@
     <string name="log_in">Ingresar</string>
     <string name="password">Contraseña</string>
     <string name="user">Usuario</string>
+    <string name="logging_in">Inciando sesión&#8230;</string>
+
+    <!-- RequestManager strings -->
+    <string name="req_man_error_contacting_service">Error contactando el Servicio</string>
+    <string name="req_man_login_info_error">Error de usuario o contraseña</string>
+    <string name="req_man_retrieving_pdvs">Consultando información de puntos de venta</string>
+    <string name="req_man_retrieving_pdv_detail">Consultando detalle de punto de venta</string>
+    <string name="req_man_retrieving_products_list">Consultando información de productos</string>
 
 </resources>
