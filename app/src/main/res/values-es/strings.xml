@@ -31,4 +31,11 @@
     <string name="req_man_retrieving_pdv_detail">Consultando detalle de punto de venta</string>
     <string name="req_man_retrieving_products_list">Consultando información de productos</string>
 
+    <!--Error messages-->
+    <string name="error_empty_field">Llena este campo</string>
+    <string name="error_invalid_tax_value">Éste valor es incorrecto</string>
+    <string name="error_existing_barcode">Éste código ya existe</string>
+    <string name="error_invalid_email_address">Verifica el email</string>
+    <string name="error_invalid_zip_code">Verifca el código postal</string>
+
 </resources>

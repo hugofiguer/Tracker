@@ -2,6 +2,7 @@ package com.sellcom.tracker;
 
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -24,16 +25,11 @@ import android.widget.TextView;
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
-    /**
-     * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
-     */
     private NavigationDrawerFragment mNavigationDrawerFragment;
-
-    /**
-     * Used to store the last screen title. For use in {@link #restoreActionBar()}.
-     */
     private int mIcon;
     private CharSequence mTitle;
+    Fragment fragment;
+    public int depthCounter = 0;
     public boolean isDrawerOpen;
 
     @Override
@@ -51,12 +47,46 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        mNavigationDrawerFragment.selectItem(0);
     }
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        String TAG;
+
+        Fragment Aux = null;
+        switch(position){
+            case NavigationDrawerFragment.HOME:
+                TAG = "home";
+                if(fragmentManager.findFragmentByTag(TAG) != null){
+                    fragment = fragmentManager.findFragmentByTag(TAG);
+                    Aux = new FragmentHome();
+                }else
+                    fragment = new FragmentHome();
+                break;
+            default:
+                return;
+        }
+
+        if (position > 0) {
+            fragmentTransaction.setCustomAnimations(R.anim.slide_from_right, R.anim.shrink_out, R.anim.slide_from_left, R.anim.shrink_out);
+            depthCounter = 1;
+        } else if (position == 0) {
+            depthCounter = 0;
+        }
+
+        if(fragmentManager.findFragmentByTag("home") != null)
+            fragmentTransaction.remove(fragmentManager.findFragmentByTag("home"));
+
+        if(Aux != null)
+            fragment = Aux;
+
+        fragmentTransaction.replace(R.id.container, fragment, TAG).commit();
+
     }
 
     public void onSectionAttached(int number) {

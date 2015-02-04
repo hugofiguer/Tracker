@@ -23,8 +23,7 @@
     <string name="password">Password</string>
     <string name="user">User</string>
     <string name="logging_in">Logging in…</string>
-
-    <string name="title_activity_login">Login</string>
+    <string name="title_activity_tracker">Tracker</string>
 
     <!-- RequestManager strings -->
     <string name="req_man_error_contacting_service">Error contacting service</string>
@@ -32,5 +31,12 @@
     <string name="req_man_retrieving_pdvs">Retrieving Sales Points Data</string>
     <string name="req_man_retrieving_pdv_detail">Retrieving Sales Point Details</string>
     <string name="req_man_retrieving_products_list">Retrieving Products Information</string>
+
+    <!-- Error messages -->
+    <string name="error_empty_field">Complete this field</string>
+    <string name="error_invalid_tax_value">Tax is too high</string>
+    <string name="error_existing_barcode">The code is already registered</string>
+    <string name="error_invalid_email_address">Verify the email address</string>
+    <string name="error_invalid_zip_code">Verify the zip code</string>
 
 </resources>

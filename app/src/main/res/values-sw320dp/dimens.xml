@@ -4,4 +4,6 @@
     <dimen name="sizeMediumText">20sp</dimen>
     <dimen name="sizeLargeText">30sp</dimen>
 
+    <dimen name="navigation_drawer_width">220dp</dimen>
+
 </resources>

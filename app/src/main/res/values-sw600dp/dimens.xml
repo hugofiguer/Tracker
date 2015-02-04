@@ -5,4 +5,6 @@
     <dimen name="sizeMediumText">25sp</dimen>
     <dimen name="sizeLargeText">35sp</dimen>
 
+    <dimen name="navigation_drawer_width">240dp</dimen>
+
 </resources>
