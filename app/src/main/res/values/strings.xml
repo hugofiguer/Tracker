@@ -39,4 +39,7 @@
     <string name="error_invalid_email_address">Verify the email address</string>
     <string name="error_invalid_zip_code">Verify the zip code</string>
 
+    <!-- FragmentNotifications  -->
+    <string name="no_notifications">You don\'t have notifications</string>
+
 </resources>

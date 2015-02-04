@@ -69,6 +69,11 @@ public class FragmentHome extends Fragment {
                 fragment = new FragmentTime();
                 TAG = "time";
                 break;
+            case NOTIFICATIONS:
+                container = R.id.fragment_notifications_container;
+                fragment = new FragmentNotifications();
+                TAG = "notifications";
+                break;
         }
 
         FragmentManager fragmentManager = getFragmentManager();

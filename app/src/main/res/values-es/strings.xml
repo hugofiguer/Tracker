@@ -38,4 +38,7 @@
     <string name="error_invalid_email_address">Verifica el email</string>
     <string name="error_invalid_zip_code">Verifca el código postal</string>
 
+    <!-- FragmentNotifications  -->
+    <string name="no_notifications">No hay notificaciones</string>
+
 </resources>
