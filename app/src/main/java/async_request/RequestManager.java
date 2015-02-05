@@ -39,7 +39,7 @@ public class RequestManager implements ResponseListenerInterface {
     public  final String LOG_TAG_MANAGER    = "requestManager";
     public  final String LOG_TAG_REQUEST    = "asyncRequest";
 
-    public  final String API_URL 	       = "http://54.187.219.128/ragasa/sicmobile/api.php";
+    public  final String API_URL 	       = "http://172.20.111.69:8880/app_develop/Preventa-Central-master/api.php";
 
     private static RequestManager manager;
     private Activity activity;
@@ -115,9 +115,6 @@ public class RequestManager implements ResponseListenerInterface {
             case GET_PDV_INFO:
                 dialogMessage   = activity.getString(R.string.req_man_retrieving_pdv_detail);
                 break;
-            case GET_PRODUCTS:
-                dialogMessage   = activity.getString(R.string.req_man_retrieving_products_list);
-                break;
             default:
                 break;
         }
@@ -151,7 +148,7 @@ public class RequestManager implements ResponseListenerInterface {
                 // Decode the json object
                 Log.d(LOG_TAG_MANAGER, jsonResponse.toString());
                 listener.decodeResponse(jsonResponse.toString());
-            }
+            }/*
             else{
                 if (jsonResponse.getString("method").equalsIgnoreCase(METHOD.GET_PRODUCTS.toString())){
                     Log.d(LOG_TAG_MANAGER, jsonResponse.toString());
@@ -160,7 +157,7 @@ public class RequestManager implements ResponseListenerInterface {
                 else{
                     showErrorDialog(jsonResponse.getString("resp"), this.activity);
                 }
-            }
+            }*/
         } catch (JSONException e) {
             e.printStackTrace();
             showErrorDialog(activity.getString(R.string.req_man_error_contacting_service), this.activity);
@@ -247,33 +244,7 @@ public class RequestManager implements ResponseListenerInterface {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                    }
-                    else if (method == METHOD.GET_PRODUCTS){
-                        try {
-                            jsonResponse.put("success",true);
-                            jsonResponse.put("resp","OK");
-
-                            JSONArray pdvs = new JSONArray();
-
-                            for (int i=1; i<=5; i++){
-                                JSONObject prod = new JSONObject();
-                                prod.put("prod_id",i*10);
-                                prod.put("prod_name","Aceite_"+i*10);
-                                prod.put("prod_desc","Aceite del número "+i*10);
-                                prod.put("prod_price",i*10.5);
-                                prod.put("prod_tax",(i*10.5)*.15);
-                                prod.put("prod_brand",i+100);
-                                prod.put("prod_img","1234567890");
-
-                                pdvs.put(prod);
-                            }
-                            jsonResponse.put("products",pdvs);
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    else {
+                    }else {
                         try {
                             jsonResponse.put("success",true);
                             jsonResponse.put("date","01/01/2015");

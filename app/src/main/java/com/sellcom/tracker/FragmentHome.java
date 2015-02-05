@@ -84,6 +84,16 @@ public class FragmentHome extends Fragment {
                 fragment = new FragmentNotifications();
                 TAG = "notifications";
                 break;
+            case TRAFFIC:
+                container = R.id.fragment_traffic_container;
+                fragment = new FragmentTraffic();
+                TAG = "traffic";
+                break;
+            case TRAFFIC_MAP:
+                container = R.id.fragment_traffic_map_container;
+                fragment = new FragmentTrafficMap();
+                TAG = "trafficmap";
+                break;
         }
 
         FragmentManager fragmentManager = getFragmentManager();

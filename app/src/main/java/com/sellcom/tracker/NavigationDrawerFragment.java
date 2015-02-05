@@ -44,6 +44,10 @@ public class NavigationDrawerFragment extends Fragment {
 
 
     public static final int HOME        = 0;
+    public static final int WORK_PLAN   = 1;
+    public static final int VISITS      = 2;
+    public static final int SETTINGS    = 3;
+    public static final int LOG_OUT     = 4;
 
 
     /**

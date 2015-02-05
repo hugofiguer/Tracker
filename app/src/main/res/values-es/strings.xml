@@ -104,4 +104,7 @@
         <item>	Tormentas aisladas	</item>
     </string-array>
 
+    <!-- Module Traffic -->
+    <string name="see_traffic">Ver tráfico</string>
+
 </resources>

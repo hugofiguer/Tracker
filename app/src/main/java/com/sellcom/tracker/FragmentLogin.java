@@ -3,21 +3,36 @@ package com.sellcom.tracker;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+
+import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Map;
+
+import async_request.METHOD;
+import async_request.RequestManager;
+import async_request.UIResponseListenerInterface;
+import database.models.Permission;
+import database.models.Profile;
+import database.models.Session;
+import database.models.User;
 import util.Utilities;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class FragmentLogin extends Fragment implements View.OnClickListener{
+
+public class FragmentLogin extends Fragment implements View.OnClickListener, UIResponseListenerInterface {
 
     private Context context;
     private EditText txt_emailUser,txt_passwordUser;
@@ -66,11 +81,107 @@ public class FragmentLogin extends Fragment implements View.OnClickListener{
                 txt_passwordUser.requestFocus();
                 return;
             }else {
-                Utilities.hideKeyboard(context, txt_passwordUser);
                 Intent intent = new Intent(context, MainActivity.class);
                 startActivity(intent);
             }
+
+            Utilities.hideKeyboard(context, txt_passwordUser);
+
+            /**** Request manager stub
+             * 1. Recover data from UI
+             * 2. Set the RequestManager listener to 'this'
+             * 3. Send the request (Via RequestManager)
+             * 4. Wait for it
+             */
+
+            // 0
+            final Map<String, String> params = new HashMap<String, String>();
+            params.put("request", METHOD.LOGIN.toString());
+            params.put("user", textEmail);
+            params.put("password", textPassword);
+
+            //2
+            RequestManager.sharedInstance().setListener(this);
+
+            //3
+            RequestManager.sharedInstance().makeRequestWithDataAndMethod(params, METHOD.LOGIN);
+
         }
+
+    }
+
+    public void startMainActivity(){
+        Intent i = new Intent(context, MainActivity.class);
+        startActivity(i);
+        getActivity().overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+    }
+
+    @Override
+    public void prepareRequest(METHOD method, Map<String, String> params) {
+
+        /**** Request manager stub
+         * 0. Recover data from UI
+         * 1. Add credentials information
+         * 2. Set the RequestManager listener to 'this'
+         * 3. Send the request (Via RequestManager)
+         * 4. Wait for it
+         */
+
+        // 1
+        String token      = Session.getSessionActive(getActivity()).getToken();
+        String username   = User.getUser(getActivity(), Session.getSessionActive(getActivity()).getUser_id()).getEmail();
+        params.put("request", method.toString());
+        params.put("user", username);
+        params.put("token", token);
+
+        //2
+        RequestManager.sharedInstance().setListener(this);
+
+        //3
+        RequestManager.sharedInstance().makeRequestWithDataAndMethod(params, method);
+
+    }
+
+    @Override
+    public void decodeResponse(String stringResponse) {
+
+        Log.d("LOG_LOGIN_FRAGMENT", stringResponse);
+
+        JSONObject resp;
+
+        try {
+            resp        = new JSONObject(stringResponse);
+
+            if (resp.getString("method").equalsIgnoreCase(METHOD.LOGIN.toString())) {
+                txt_emailUser.setText("");
+                txt_passwordUser.setText("");
+
+                String textToken = resp.getString("token");
+
+                // Force to salesman profile
+                int profileId = 2;
+                String profileName = "Level 1";
+
+                Cursor user = User.getUserForEmail(context, textEmail);
+                if (user != null && user.getCount() > 0) {
+
+                } else {
+                    long userId = User.insert(getActivity(), textEmail, textPassword, profileId, 0);
+                    Session.closeSession(context);
+                    Session.insert(context, 1, "date", textToken, "001", (int) userId);
+
+                    Profile.insert(context, profileId, profileName);
+
+                    if (profileId == 1)
+                        Permission.setFullPermission(context, profileName);
+                    else
+                        Permission.setBasicPermission(context, profileName);
+                    }
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
     }
 }

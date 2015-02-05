@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:singleLine="true"
-        android:textSize="15sp"
+        android:textSize="@dimen/sizeNormalText"
         android:textColor="#FFFFFF"/>
 
     <TextView
@@ -21,6 +21,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#F0F0F0"
-        android:textSize="12sp"/>
+        android:textSize="@dimen/sizeSmallText"/>
 
 </LinearLayout>

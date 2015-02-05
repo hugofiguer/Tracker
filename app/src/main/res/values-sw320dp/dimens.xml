@@ -1,5 +1,6 @@
 <resources>
 
+    <dimen name="sizeSmallText">12sp</dimen>
     <dimen name="sizeNormalText">15sp</dimen>
     <dimen name="sizeMediumText">20sp</dimen>
     <dimen name="sizeLargeText">30sp</dimen>

@@ -6,9 +6,7 @@ import android.database.Cursor;
 
 import database.DataBaseAdapter;
 
-/**
- * Created by jcenteno on 15/05/14.
- */
+
 public class Note extends Table {
 
     public static final String TABLE = "note";
