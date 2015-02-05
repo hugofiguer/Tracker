@@ -11,4 +11,14 @@
         <item name="android:background">@color/gray</item>
     </style>
 
+    <style name="DialogAnimations">
+        <item name="android:windowEnterAnimation">@anim/dialog_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/dialog_to_bottom</item>
+    </style>
+
+    <style name="AnimatedDialog" parent="@android:style/Theme.Holo.Dialog">
+        <item name="android:windowAnimationStyle">@style/DialogAnimations</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
 </resources>

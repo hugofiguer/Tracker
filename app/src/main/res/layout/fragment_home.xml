@@ -32,8 +32,7 @@
         android:id="@+id/fragment_notes_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/maroon"/>
+        android:layout_weight="1"/>
 
     <ImageView
         android:layout_width="match_parent"

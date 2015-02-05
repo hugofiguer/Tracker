@@ -41,4 +41,12 @@
     <!-- FragmentNotifications  -->
     <string name="no_notifications">No hay notificaciones</string>
 
+    <!--Module notes-->
+    <string name="add_note">Nota nueva</string>
+    <string name="no_notes">No hay notas</string>
+    <string name="edit_note">Editar nota</string>
+    <string name="note_deleted">¡Nota borrada!</string>
+    <string name="done">Hecho</string>
+    <string name="cancel">Cancelar</string>
+
 </resources>

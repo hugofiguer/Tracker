@@ -39,7 +39,15 @@
     <string name="error_invalid_email_address">Verify the email address</string>
     <string name="error_invalid_zip_code">Verify the zip code</string>
 
-    <!-- FragmentNotifications  -->
+    <!-- FragmentNotifications -->
     <string name="no_notifications">You don\'t have notifications</string>
+
+    <!-- Module notes -->
+    <string name="add_note">Add new note</string>
+    <string name="no_notes">You don\'t have notes</string>
+    <string name="edit_note">Edit note</string>
+    <string name="note_deleted">Note deleted!</string>
+    <string name="done">Done</string>
+    <string name="cancel">Cancel</string>
 
 </resources>
