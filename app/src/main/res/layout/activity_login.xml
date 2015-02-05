@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:id="@+id/layoutLogin"
-    android:background="@color/gray"
+    android:background="#333"
     >
 
 </RelativeLayout>

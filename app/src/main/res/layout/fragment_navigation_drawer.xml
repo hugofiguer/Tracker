@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp"
-        android:background="@color/teal">
+        android:background="#333">
 
         <ImageView
             android:id="@+id/profile_picture"
@@ -25,7 +25,7 @@
             android:layout_toRightOf="@id/profile_picture"
             android:textSize="@dimen/sizeMediumText"
             android:textStyle="bold"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:text="My name"/>
 
         <TextView
@@ -35,7 +35,7 @@
             android:layout_toRightOf="@id/profile_picture"
             android:layout_below="@+id/user_name"
             android:textSize="@dimen/sizeNormalText"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:text="My email"/>
 
     </RelativeLayout>
@@ -45,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:choiceMode="singleChoice"
-        android:background="#A022394a"
+        android:background="#A0AAAAAA"
         android:divider="@null"
         tools:context="com.sellcom.tracker.NavigationDrawerFragment"/>
 

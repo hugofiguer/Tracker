@@ -8,7 +8,7 @@
         android:id="@+id/buttons_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#5f4c37">
+        android:background="#088A08">
 
         <Button
             android:id="@+id/cancel_button"
@@ -41,7 +41,7 @@
         android:paddingLeft="25dp"
         android:paddingRight="25dp"
         android:lineSpacingExtra="5dp"
-        android:background="#f0f5a9"
+        android:background="#FFFFFF"
         android:textSize="@dimen/sizeNormalText"
         android:textColor="#000000"
         android:textCursorDrawable="@null"/>

@@ -69,15 +69,20 @@ public class FragmentHome extends Fragment {
                 fragment = new FragmentTime();
                 TAG = "time";
                 break;
-            case NOTIFICATIONS:
-                container = R.id.fragment_notifications_container;
-                fragment = new FragmentNotifications();
-                TAG = "notifications";
+            case WEATHER:
+                container = R.id.fragment_weather_container;
+                fragment = new FragmentWeather();
+                TAG = "weather";
                 break;
             case NOTES:
                 container = R.id.fragment_notes_container;
                 fragment = new FragmentNotes();
                 TAG = "notes";
+                break;
+            case NOTIFICATIONS:
+                container = R.id.fragment_notifications_container;
+                fragment = new FragmentNotifications();
+                TAG = "notifications";
                 break;
         }
 

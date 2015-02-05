@@ -49,4 +49,59 @@
     <string name="done">Hecho</string>
     <string name="cancel">Cancelar</string>
 
+    <!--Module weather-->
+    <string name="location_unavailable">No se pudo obtener su posición</string>
+    <string name="weather_unavailable">No se pudo obtener la información del clima</string>
+
+    <string-array name="weather_conditions">
+        <item>	Tornado	</item>
+        <item>	Tormenta tropical	</item>
+        <item>	Huracán	</item>
+        <item>	Tormentas eléctricas severas	</item>
+        <item>	Tormentas eléctricas	</item>
+        <item>	Lluvia con nieve	</item>
+        <item>	Lluvia con aguanieve	</item>
+        <item>	Nieve con aguanieve	</item>
+        <item>	Llovizna helada	</item>
+        <item>	Llovizna	</item>
+        <item>	Lluvia helada	</item>
+        <item>	Aguacero	</item>
+        <item>	Aguacero	</item>
+        <item>	Copos de nieve	</item>
+        <item>	Nevadas ligeras	</item>
+        <item>	Ventisca de nieve	</item>
+        <item>	Nieve	</item>
+        <item>	Granizo	</item>
+        <item>	Aguanieve	</item>
+        <item>	Polvo	</item>
+        <item>	Bruma	</item>
+        <item>	Neblina	</item>
+        <item>	Humo	</item>
+        <item>	Borrascoso	</item>
+        <item>	Ventisca	</item>
+        <item>	Frio	</item>
+        <item>	Nublado	</item>
+        <item>	Mayormente nublado	</item>
+        <item>	Mayormente nublado	</item>
+        <item>	Parcialmente nublado	</item>
+        <item>	Parcialmente nublado	</item>
+        <item>	Despejado	</item>
+        <item>	Soleado	</item>
+        <item>	Claro	</item>
+        <item>	Claro	</item>
+        <item>	Lluvia con granizo	</item>
+        <item>	Caluroso	</item>
+        <item>	Tormentas eléctricas aisladas	</item>
+        <item>	Tormentas eléctricas dispersas	</item>
+        <item>	Tormentas eléctricas dispersas	</item>
+        <item>	Aguaceros dispersos	</item>
+        <item>	Nevadas severas	</item>
+        <item>	Nevadas dispersas	</item>
+        <item>	Nevadas severas	</item>
+        <item>	Parcialmente nublado	</item>
+        <item>	Tormentas	</item>
+        <item>	Nevadas	</item>
+        <item>	Tormentas aisladas	</item>
+    </string-array>
+
 </resources>

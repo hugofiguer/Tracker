@@ -9,4 +9,55 @@
         <item>@drawable/menu4</item>
     </array>
 
+    <array name="weather_icons">
+        <item>null</item>
+        <item>null</item>
+        <item>null</item>
+        <item>null</item>
+        <item>null</item>
+        <item>null</item>
+        <item>null</item>
+        <item>null</item>
+        <item>@drawable/h_light_rain</item>
+        <item>@drawable/h_light_rain</item>
+        <item>null</item>
+        <item>@drawable/h_heavy_rain</item>
+        <item>@drawable/h_heavy_rain</item>
+        <item>null</item>
+        <item>null</item>
+        <item>null</item>
+        <item>null</item>
+        <item>null</item>
+        <item>null</item>
+        <item>@drawable/h_haze</item>
+        <item>@drawable/h_haze</item>
+        <item>@drawable/h_haze</item>
+        <item>@drawable/h_haze</item>
+        <item>null</item>
+        <item>null</item>
+        <item>null</item>
+        <item>@drawable/h_cloudy</item>
+        <item>@drawable/h_cloudy</item>
+        <item>@drawable/h_cloudy</item>
+        <item>@drawable/h_cloudy</item>
+        <item>@drawable/h_cloudy</item>
+        <item>@drawable/h_sun</item>
+        <item>@drawable/h_sun</item>
+        <item>@drawable/h_sun</item>
+        <item>@drawable/h_sun</item>
+        <item>null</item>
+        <item>@drawable/h_sun</item>
+        <item>@drawable/h_heavy_rain</item>
+        <item>@drawable/h_heavy_rain</item>
+        <item>@drawable/h_heavy_rain</item>
+        <item>@drawable/h_heavy_rain</item>
+        <item>null</item>
+        <item>null</item>
+        <item>null</item>
+        <item>@drawable/h_cloudy</item>
+        <item>@drawable/h_heavy_rain</item>
+        <item>null</item>
+        <item>@drawable/h_heavy_rain</item>
+    </array>
+
 </resources>
