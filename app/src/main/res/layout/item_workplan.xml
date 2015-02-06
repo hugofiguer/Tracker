@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="#d0d8d8"
+    android:gravity="center"
+    >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/relativelayout_number">
+
+        <TextView
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:background="@android:color/black"
+            android:text=" 00 "
+            android:textStyle="bold"
+            android:gravity="center"
+            android:id="@+id/txv_clients_preview_num"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"/>
+
+    </RelativeLayout>
+
+    <TableLayout
+        android:id="@+id/tableL_data"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        >
+
+        <TableRow
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:layout_weight="0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="7dp"
+                android:text="@string/wp_item_customer"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                />
+
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/txt_pdv_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="mis item´s"
+                android:textColor="@android:color/black"
+                android:textSize="20dp"
+                android:layout_marginRight="2dp"
+                android:gravity="center"
+                />
+        </TableRow>
+
+        <TableRow
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:layout_weight="0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="7dp"
+                android:text="@string/wp_item_hour"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:textSize="20dp"
+
+                />
+
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/txt_pdv_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="mis item´s"
+                android:textColor="@android:color/black"
+                android:textSize="20dp"
+                android:layout_marginRight="2dp"
+                android:gravity="center"
+                />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content">
+
+            <TextView
+                android:layout_weight="0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="7dp"
+                android:text="@string/wp_item_status"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                />
+
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/txt_pdv_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="mis item´s"
+                android:textColor="@android:color/black"
+                android:textSize="20dp"
+                android:layout_marginRight="2dp"
+                android:gravity="center"
+                />
+
+        </TableRow>
+
+    </TableLayout>
+
+
+
+
+</LinearLayout>

@@ -1,7 +1,11 @@
 package com.sellcom.tracker;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.os.Environment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
@@ -21,6 +25,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.io.File;
+
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -28,6 +34,7 @@ public class MainActivity extends ActionBarActivity
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private int mIcon;
     private CharSequence mTitle;
+    String CURRENT_FRAGMENT_TAG;
     Fragment fragment;
     public int depthCounter = 0;
     public boolean isDrawerOpen;
@@ -61,12 +68,21 @@ public class MainActivity extends ActionBarActivity
         Fragment Aux = null;
         switch(position){
             case NavigationDrawerFragment.HOME:
-                TAG = "home";
-                if(fragmentManager.findFragmentByTag(TAG) != null){
-                    fragment = fragmentManager.findFragmentByTag(TAG);
+                CURRENT_FRAGMENT_TAG = "home";
+                if(fragmentManager.findFragmentByTag(CURRENT_FRAGMENT_TAG) != null){
+                    fragment = fragmentManager.findFragmentByTag(CURRENT_FRAGMENT_TAG);
                     Aux = new FragmentHome();
                 }else
                     fragment = new FragmentHome();
+                break;
+            case NavigationDrawerFragment.WORK_PLAN:
+
+                CURRENT_FRAGMENT_TAG = FragmentWorkPlan.TAG;
+                if(fragmentManager.findFragmentByTag(CURRENT_FRAGMENT_TAG) != null){
+                    fragment = fragmentManager.findFragmentByTag(CURRENT_FRAGMENT_TAG);
+                }else{
+                    fragment = new FragmentWorkPlan();
+                }
                 break;
             default:
                 return;
@@ -85,7 +101,7 @@ public class MainActivity extends ActionBarActivity
         if(Aux != null)
             fragment = Aux;
 
-        fragmentTransaction.replace(R.id.container, fragment, TAG).commit();
+        fragmentTransaction.replace(R.id.container, fragment, CURRENT_FRAGMENT_TAG).commit();
 
     }
 
@@ -115,18 +131,62 @@ public class MainActivity extends ActionBarActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public void onBackPressed() {
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        try {
+            String file = Environment.getExternalStorageDirectory().getAbsolutePath() + "/"+".photo";
+            File dir = new File(file);
+            if (dir.exists()) {
+                File childFile[] = dir.listFiles();
+                if (childFile != null) {
+                    for (File file1 : childFile) {
+                        file1.delete();
+                    }
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
         }
 
-        return super.onOptionsItemSelected(item);
+        if (depthCounter == 1) {
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+
+
+        } else {
+
+
+
+            Fragment home = getSupportFragmentManager().findFragmentByTag("home");
+            if(home != null && home.isAdded()){
+                //Session.closeSession(getApplicationContext());
+                moveTaskToBack(true);
+            } else
+                super.onBackPressed();
+        }
+
+        if (depthCounter > 0)
+            depthCounter--;
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode,resultCode,data);
+
+        if (resultCode == RESULT_OK) {
+            FragmentManager         manager         = getSupportFragmentManager();
+        }
+    }
+
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        FragmentManager     fragmentManager     = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
     }
 
 

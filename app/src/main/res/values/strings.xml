@@ -112,4 +112,9 @@
     <!-- Module Traffic -->
     <string name="see_traffic">See traffic</string>
 
+    <!-- Work Plan adapter list -->
+    <string name="wp_item_customer">NAME: </string>
+    <string name="wp_item_hour">HOUR: </string>
+    <string name="wp_item_status">STATUS: </string>
+
 </resources>

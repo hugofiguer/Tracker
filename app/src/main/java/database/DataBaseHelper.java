@@ -6,6 +6,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import database.models.Note;
+import database.models.People;
+import database.models.Permission;
+import database.models.Profile;
+import database.models.Session;
+import database.models.User;
 import util.LogUtil;
 
 import static util.LogUtil.makeLogTag;
@@ -33,6 +38,53 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         LogUtil.addCheckpoint("DatabaseHelper : onCreate");
+
+        db.execSQL("CREATE TABLE "+ User.TABLE+" ("
+                +"id integer NOT NULL PRIMARY KEY AUTOINCREMENT,"
+                +"username varchar(250) NOT NULL,"
+                +"password varchar(250) NOT NULL,"
+                +"profile_id integer NOT NULL,"
+                +"people_id integer NOT NULL,"
+                +"FOREIGN KEY (profile_id) REFERENCES profile (id),"
+                +"FOREIGN KEY (people_id) REFERENCES profile (id))");
+
+        db.execSQL("CREATE TABLE "+ Permission.TABLE+" ("
+                +"id integer NOT NULL PRIMARY KEY AUTOINCREMENT,"
+                +"profile_id integer NOT NULL,"
+                +"module_id integer NOT NULL,"
+                +"FOREIGN KEY (profile_id) REFERENCES profile (id),"
+                +"FOREIGN KEY (module_id) REFERENCES module (id))");
+
+        db.execSQL("CREATE TABLE "+ Profile.TABLE+" ("
+                +"id integer NOT NULL PRIMARY KEY,"
+                +"name varchar(250) NOT NULL)");
+
+        db.execSQL("CREATE TABLE "+ People.TABLE +" (" +
+                "    id integer NOT NULL PRIMARY KEY AUTOINCREMENT," +
+                "    first_name varchar(250) NOT NULL," +
+                "    last_name varchar(250) NOT NULL," +
+                "    email varchar(250) NOT NULL," +
+                "    rfc varchar(250)," +
+                "    phone_number varchar(250)," +
+                "    address_1 varchar(250)," +
+                "    address_2 varchar(250)," +
+                "    city varchar(250)," +
+                "    state varchar(250)," +
+                "    country varchar(250)," +
+                "    comments varchar(250)," +
+                "    zip_code integer," +
+                "    photo blob" +
+                ")");
+
+        db.execSQL("CREATE TABLE "+ Session.TABLE+" (" +
+                "    id integer NOT NULL PRIMARY KEY AUTOINCREMENT," +
+                "    status integer NOT NULL," +
+                "    timestamp datetime NOT NULL DEFAULT (datetime('now','localtime'))," +
+                "    token varchar(250) NOT NULL," +
+                "    device varchar(250) NOT NULL," +
+                "    user_id integer NOT NULL," +
+                "    FOREIGN KEY (user_id) REFERENCES user (id)" +
+                ")");
 
         db.execSQL("CREATE TABLE "+ Note.TABLE+" ("
                 +"id integer NOT NULL PRIMARY KEY AUTOINCREMENT,"

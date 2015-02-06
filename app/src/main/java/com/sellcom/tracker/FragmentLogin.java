@@ -57,7 +57,9 @@ public class FragmentLogin extends Fragment implements View.OnClickListener, UIR
         boton.setOnClickListener(this);
 
         txt_emailUser = (EditText)view.findViewById(R.id.emailUser);
+        txt_emailUser.setOnClickListener(this);
         txt_passwordUser = (EditText)view.findViewById(R.id.passwordUser);
+        txt_passwordUser.setOnClickListener(this);
 
         return view;
     }
@@ -66,46 +68,44 @@ public class FragmentLogin extends Fragment implements View.OnClickListener, UIR
     @Override
     public void onClick(View view) {
 
-        if(view.getId() == R.id.sign_in_button){
-            textEmail       = txt_emailUser.getText().toString();
-            textPassword    = txt_passwordUser.getText().toString();
+        switch (view.getId()){
+            case R.id.sign_in_button:
+                textEmail       = txt_emailUser.getText().toString();
+                textPassword    = txt_passwordUser.getText().toString();
 
 
-            if (textEmail.isEmpty()) {
-                txt_emailUser.setError(getString(R.string.error_empty_field));
-                txt_emailUser.requestFocus();
-                return;
-            }
-            else if (textPassword.isEmpty()){
-                txt_passwordUser.setError(getString(R.string.error_empty_field));
-                txt_passwordUser.requestFocus();
-                return;
-            }else {
-                Intent intent = new Intent(context, MainActivity.class);
-                startActivity(intent);
-            }
+                if (textEmail.isEmpty()) {
+                    txt_emailUser.setError(getString(R.string.error_empty_field));
+                    txt_emailUser.requestFocus();
+                    return;
+                }
+                else if (textPassword.isEmpty()){
+                    txt_passwordUser.setError(getString(R.string.error_empty_field));
+                    txt_passwordUser.requestFocus();
+                    return;
+                }else
 
-            Utilities.hideKeyboard(context, txt_passwordUser);
+                Utilities.hideKeyboard(context, txt_passwordUser);
 
-            /**** Request manager stub
-             * 1. Recover data from UI
-             * 2. Set the RequestManager listener to 'this'
-             * 3. Send the request (Via RequestManager)
-             * 4. Wait for it
-             */
+                /**** Request manager stub
+                 * 1. Recover data from UI
+                 * 2. Set the RequestManager listener to 'this'
+                 * 3. Send the request (Via RequestManager)
+                 * 4. Wait for it
+                 */
 
-            // 0
-            final Map<String, String> params = new HashMap<String, String>();
-            params.put("request", METHOD.LOGIN.toString());
-            params.put("user", textEmail);
-            params.put("password", textPassword);
+                // 0
+                final Map<String, String> params = new HashMap<String, String>();
+                params.put("request", METHOD.LOGIN.toString());
+                params.put("user", textEmail);
+                params.put("password", textPassword);
 
-            //2
-            RequestManager.sharedInstance().setListener(this);
+                //2
+                RequestManager.sharedInstance().setListener(this);
 
-            //3
-            RequestManager.sharedInstance().makeRequestWithDataAndMethod(params, METHOD.LOGIN);
-
+                //3
+                RequestManager.sharedInstance().makeRequestWithDataAndMethod(params, METHOD.LOGIN);
+            break;
         }
 
     }
@@ -138,7 +138,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener, UIR
         RequestManager.sharedInstance().setListener(this);
 
         //3
-        RequestManager.sharedInstance().makeRequestWithDataAndMethod(params, method);
+        RequestManager.sharedInstance().makeRequestWithDataAndMethod(params, method.LOGIN);
 
     }
 
@@ -146,7 +146,6 @@ public class FragmentLogin extends Fragment implements View.OnClickListener, UIR
     public void decodeResponse(String stringResponse) {
 
         Log.d("LOG_LOGIN_FRAGMENT", stringResponse);
-
         JSONObject resp;
 
         try {
@@ -155,17 +154,17 @@ public class FragmentLogin extends Fragment implements View.OnClickListener, UIR
             if (resp.getString("method").equalsIgnoreCase(METHOD.LOGIN.toString())) {
                 txt_emailUser.setText("");
                 txt_passwordUser.setText("");
-
+                Log.e("ABCDEFG","EN IFDECODERESPONSE");
                 String textToken = resp.getString("token");
 
                 // Force to salesman profile
                 int profileId = 2;
                 String profileName = "Level 1";
-
                 Cursor user = User.getUserForEmail(context, textEmail);
                 if (user != null && user.getCount() > 0) {
 
                 } else {
+
                     long userId = User.insert(getActivity(), textEmail, textPassword, profileId, 0);
                     Session.closeSession(context);
                     Session.insert(context, 1, "date", textToken, "001", (int) userId);
@@ -178,7 +177,10 @@ public class FragmentLogin extends Fragment implements View.OnClickListener, UIR
                         Permission.setBasicPermission(context, profileName);
                     }
 
+
                 }
+
+            startMainActivity();
             } catch (JSONException e) {
                 e.printStackTrace();
             }

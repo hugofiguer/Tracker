@@ -103,7 +103,7 @@ public class User extends Table {
     }
 
     public static Cursor getUserForEmail(Context context, String email) {
-        Cursor mC;
+        Cursor mC = null;
         mC = DataBaseAdapter.getDB(context).query(TABLE, null, EMAIL + "=?", new String[]{email}, null, null, null);
         if (mC != null) {
             mC.moveToFirst();

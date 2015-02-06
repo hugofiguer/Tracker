@@ -34,12 +34,16 @@ import java.util.Map;
 public class RequestManager implements ResponseListenerInterface {
 
     //Etapa de pruebas... TEST_MODE
-    public  final   boolean                                 TEST_MODE          = true;
+    //public  final   boolean                                 TEST_MODE          = true;
+    public  final   boolean                                 TEST_MODE          = false;
 
     public  final String LOG_TAG_MANAGER    = "requestManager";
     public  final String LOG_TAG_REQUEST    = "asyncRequest";
 
     public  final String API_URL 	       = "http://172.20.111.69:8880/app_develop/Preventa-Central-master/api.php";
+    //public  final String API_URL 	       = "http://187.237.42.162:8880/app_develop/Preventa-Central-master/api.php";
+    //public  final String API_URL 	       = "http://54.187.219.128/ragasa/sicmobile/api.php";  //Ragasa
+
 
     private static RequestManager manager;
     private Activity activity;
@@ -147,6 +151,7 @@ public class RequestManager implements ResponseListenerInterface {
             if(jsonResponse.getString("success").equalsIgnoreCase("true")){
                 // Decode the json object
                 Log.d(LOG_TAG_MANAGER, jsonResponse.toString());
+                Log.e("ABCDEFG","EN RESPONSESERVICETOMANAGER");
                 listener.decodeResponse(jsonResponse.toString());
             }/*
             else{
@@ -210,14 +215,15 @@ public class RequestManager implements ResponseListenerInterface {
                             for (int i=1; i<=5; i++){
                                 JSONObject pdv = new JSONObject();
                                 pdv.put("pdv_id",i);
-                                pdv.put("pdv_time","10:"+i*10);
-                                pdv.put("pdv_name","Visit_no_"+i);
-                                pdv.put("pdv_status_visitado","NO");
+                                pdv.put("visit_id",i);
+                                pdv.put("pdv_date_time","10:"+i*10);
+                                pdv.put("pdv_name","Tiendita la Escondida "+i);
+                                pdv.put("pdv_status","PENDIENTE");
 
                                 pdvs.put(pdv);
                             }
 
-                            jsonResponse.put("visits",pdvs);
+                            jsonResponse.put("workplan",pdvs);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -259,6 +265,7 @@ public class RequestManager implements ResponseListenerInterface {
                 }
             }
             else{
+                Log.e("ABCDEFG","EN HTTPCLIENT");
                 HttpClient httpclient   = new DefaultHttpClient();
                 HttpPost httppost       = new HttpPost(API_URL);
 
@@ -275,6 +282,7 @@ public class RequestManager implements ResponseListenerInterface {
                     Log.d(LOG_TAG_REQUEST, "Response: " + strResponse);
                     try {
                         jsonResponse            = new JSONObject(strResponse);
+                        jsonResponse.put("method",method.toString());
                         Log.d(LOG_TAG_REQUEST, "jsonResponse: " + jsonResponse.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -301,6 +309,7 @@ public class RequestManager implements ResponseListenerInterface {
 
         protected void onPostExecute(JSONObject jsonResponse) {
             Log.d(LOG_TAG_REQUEST, "jsonResponse_post: " + jsonResponse.toString());
+            Log.e("ABCDEFG","EN ONPOSTEXECUTE");
             listener.responseServiceToManager(jsonResponse);
         }
     }

@@ -107,4 +107,9 @@
     <!-- Module Traffic -->
     <string name="see_traffic">Ver tráfico</string>
 
+    <!-- Work Plan adapter list -->
+    <string name="wp_item_customer">NOMBRE: </string>
+    <string name="wp_item_hour">HORA: </string>
+    <string name="wp_item_status">ESTATUS: </string>
+
 </resources>
