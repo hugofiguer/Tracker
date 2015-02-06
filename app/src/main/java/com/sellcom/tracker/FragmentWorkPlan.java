@@ -156,7 +156,7 @@ public class FragmentWorkPlan extends Fragment implements UIResponseListenerInte
 
             // Prepare data for ExpandableList
             if (resp.getString("method").equalsIgnoreCase(METHOD.GET_WORKPLAN.toString())){
-                //listDataHeader.add(resp.getString("date"));
+                //listDataHeader.add(resp.getString("vi_schedule_start"));
                 listDataHeader.add("06/02/2015");
 
                 JSONArray jsonArray = resp.getJSONArray("pdv_array");
