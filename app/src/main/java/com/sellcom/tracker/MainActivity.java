@@ -152,10 +152,15 @@ public class MainActivity extends ActionBarActivity
 
             FragmentManager fragmentManager = getSupportFragmentManager();
 
+            Fragment workplan  = fragmentManager.findFragmentByTag(FragmentWorkPlan.TAG);
+
+
+            if(workplan != null && workplan.isAdded()){
+                fragmentManager.beginTransaction().remove(workplan).commit();
+                this.recreate();
+            }
 
         } else {
-
-
 
             Fragment home = getSupportFragmentManager().findFragmentByTag("home");
             if(home != null && home.isAdded()){

@@ -111,5 +111,12 @@
     <string name="wp_item_customer">NOMBRE: </string>
     <string name="wp_item_hour">HORA: </string>
     <string name="wp_item_status">ESTATUS: </string>
+    <string name="status_scheduled">Agendada</string>
+    <string name="status_rescheduled">Reagendada</string>
+
+    <!-- Customer Work Plan -->
+    <string name="wp_customer" > CLIENTE </string>
+    <string name="wp_status" > STATUS </string>
+    <string name="wp_address"  > DIRECCION  </string>
 
 </resources>

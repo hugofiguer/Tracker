@@ -21,7 +21,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -156,10 +159,20 @@ public class FragmentWorkPlan extends Fragment implements UIResponseListenerInte
 
             // Prepare data for ExpandableList
             if (resp.getString("method").equalsIgnoreCase(METHOD.GET_WORKPLAN.toString())){
-                //listDataHeader.add(resp.getString("vi_schedule_start"));
-                listDataHeader.add("06/02/2015");
+
+                //listDataHeader.add("06/02/2015");
 
                 JSONArray jsonArray = resp.getJSONArray("pdv_array");
+
+                //Transformar fecha(int) en string
+                JSONObject objFecha = jsonArray.getJSONObject(0);
+                long fecha = Long.parseLong(objFecha.getString("vi_schedule_start"));
+                Log.d("EN DECODERESPONSE WORKPLAN",fecha+"");
+                String fecha_visita = new SimpleDateFormat("dd/MM/yyyy")
+                        .format(new Date(fecha * 1000L));
+                Log.d("EN DECODERESPONSE WORKPLAN",fecha_visita);
+                listDataHeader.add(fecha_visita);
+
                 List<Map<String,String>> visits = new ArrayList<Map<String,String>>();
                 for (int i=0; i<jsonArray.length(); i++){
                     JSONObject          obj     = jsonArray.getJSONObject(i);
@@ -175,18 +188,25 @@ public class FragmentWorkPlan extends Fragment implements UIResponseListenerInte
                 listDataChild.put(listDataHeader.get(0), visits);
                 expandableListAdapter.notifyDataSetChanged();
                 expandableListView.expandGroup(0);
-            }/*
+            }
             else if (resp.getString("method").equalsIgnoreCase(METHOD.GET_PDV_INFO.toString())){
 
 
                 JSONObject obj = new JSONObject(stringResponse);
-                obj.put("visit_id",selectedData.get("visit_id"));
-                obj.put("scheduled_start",selectedData.get("scheduled_start"));
-                obj.put("visit_status",selectedData.get("visit_status"));
-                obj.put("visit_status_id",selectedData.get("visit_status_id"));
+                obj.put("id_visit",selectedData.get("id_visit"));
+                obj.put("pdv_name",selectedData.get("pdv_name"));
+                obj.put("calle",selectedData.get("calle"));
+                obj.put("num_ext",selectedData.get("num_ext"));
+                obj.put("localidad",selectedData.get("localidad"));
+                obj.put("ciudad",selectedData.get("ciudad"));
+                obj.put("estado",selectedData.get("estado"));
+                obj.put("pais",selectedData.get("pais"));
+                obj.put("latitud",selectedData.get("latitud"));
+                obj.put("longitud",selectedData.get("longitud"));
+                obj.put("status_visit",selectedData.get("status_visit"));
+                obj.put("fecha programada inicial",selectedData.get("fecha programada inicial"));
+                obj.put("fecha programada final",selectedData.get("fecha programada final"));
 
-                obj.put("real_end",selectedData.get("real_end"));
-                obj.put("real_start",selectedData.get("real_start"));
 
                 Bundle bundle = new Bundle();
                 bundle.putString("response",obj.toString());
@@ -202,7 +222,7 @@ public class FragmentWorkPlan extends Fragment implements UIResponseListenerInte
                 fragmentTransaction.commit();
 
                 ((MainActivity) getActivity()).depthCounter = 2;
-            }*/
+            }
 
 
 
@@ -265,24 +285,41 @@ public class FragmentWorkPlan extends Fragment implements UIResponseListenerInte
             int real_position = childPosition+1;
             ((TextView) convertView.findViewById(R.id.txv_clients_preview_num)).setText(""+real_position);
 
+            long fecha = Long.parseLong(childData.get("vi_schedule_start"));
+            String hora_visita =  new SimpleDateFormat("HH:mm")
+                    .format(new Date(fecha * 1000L));
+
             TextView txtAux = (TextView) convertView.findViewById(R.id.txt_pdv_name);
-            txtAux.setText(childData.get("pdv"));
+            txtAux.setText(childData.get("pdv_name"));
 
             txtAux = (TextView) convertView.findViewById(R.id.txt_pdv_time);
-            txtAux.setText(childData.get("scheduled_start"));
+            txtAux.setText(hora_visita);
+
+            //Para el status de la visita
+            String status = "";
+            switch (Integer.parseInt(childData.get("id_visit_status"))){
+                case 1: //Agendada
+                    status = getString(R.string.status_scheduled);
+                    break;
+                case 2: // Re agendada
+                    status = getString(R.string.status_rescheduled);
+                    break;
+                default:
+                    break;
+            }
 
             txtAux = (TextView) convertView.findViewById(R.id.txt_pdv_status);
-            txtAux.setText(childData.get("visit_status"));
-            /*
+            txtAux.setText(status);
+
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //Toast.makeText(context, "Clicked on Detail " + childPosition, Toast.LENGTH_LONG).show();
-                    boolean fromWS = true;
+                    boolean fromWS = false;
                     if (fromWS){
                         selectedData                    = childData;
                         final Map<String, String> params = new HashMap<String, String>();
-                        params.put("pdv_id", childData.get("pdv_id"));
+                        params.put("id_visit", childData.get("id_visit"));
                         prepareRequest(METHOD.GET_PDV_INFO,params);
                     }
                     else{
@@ -305,7 +342,7 @@ public class FragmentWorkPlan extends Fragment implements UIResponseListenerInte
                     ((MainActivity) getActivity()).depthCounter = 2;
 
                 }
-            });*/
+            });
 
             return convertView;
         }

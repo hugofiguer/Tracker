@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +40,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener, UIR
     private Button boton;
     String          textEmail;
     String          textPassword;
+    int user_id;
 
     public FragmentLogin() {
         // Required empty public constructor
@@ -157,11 +159,18 @@ public class FragmentLogin extends Fragment implements View.OnClickListener, UIR
                 Log.e("ABCDEFG","EN IFDECODERESPONSE");
                 String textToken = resp.getString("token");
 
+                TelephonyManager telephonyManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+                telephonyManager.getDeviceId();
+
                 // Force to salesman profile
                 int profileId = 2;
                 String profileName = "Level 1";
                 Cursor user = User.getUserForEmail(context, textEmail);
                 if (user != null && user.getCount() > 0) {
+                    user_id = user.getInt(user.getColumnIndex(User.ID));
+
+                    Session.closeSession(context);
+                    Session.updateToken(context, 1, "fecha", textToken, android.os.Build.MODEL + " - " + telephonyManager.getDeviceId(), user_id);
 
                 } else {
 

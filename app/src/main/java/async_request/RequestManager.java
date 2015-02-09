@@ -34,8 +34,8 @@ import java.util.Map;
 public class RequestManager implements ResponseListenerInterface {
 
     //Etapa de pruebas... TEST_MODE
-    //public  final   boolean                                 TEST_MODE          = true;
-    public  final   boolean                                 TEST_MODE          = false;
+    public  final   boolean                                 TEST_MODE          = true;
+    //public  final   boolean                                 TEST_MODE          = false;
 
     public  final String LOG_TAG_MANAGER    = "requestManager";
     public  final String LOG_TAG_REQUEST    = "asyncRequest";
@@ -109,6 +109,7 @@ public class RequestManager implements ResponseListenerInterface {
 
     public void showLoadingDialog(){
         String dialogMessage    = "";
+        Log.e("ABCDEFG","EN SHOWLOADINGDIALOG");
         switch (method){
             case LOGIN:
                 dialogMessage   = activity.getString(R.string.logging_in);
@@ -134,6 +135,7 @@ public class RequestManager implements ResponseListenerInterface {
     }
 
     public void makeRequestWithDataAndMethod(Map<String,String> reqData, METHOD method){
+        Log.e("ABCDEFG",method.toString());
         this.method                 = method;
         showLoadingDialog();
         final AsyncRequest req      = new AsyncRequest(activity, reqData, this);
@@ -214,16 +216,16 @@ public class RequestManager implements ResponseListenerInterface {
 
                             for (int i=1; i<=5; i++){
                                 JSONObject pdv = new JSONObject();
-                                pdv.put("pdv_id",i);
-                                pdv.put("visit_id",i);
-                                pdv.put("pdv_date_time","10:"+i*10);
+                                pdv.put("id_pdv",i);
+                                pdv.put("id_visit",i);
+                                pdv.put("vi_schedule_start","1423502820");
                                 pdv.put("pdv_name","Tiendita la Escondida "+i);
-                                pdv.put("pdv_status","PENDIENTE");
+                                pdv.put("id_visit_status","1");
 
                                 pdvs.put(pdv);
                             }
 
-                            jsonResponse.put("workplan",pdvs);
+                            jsonResponse.put("pdv_array",pdvs);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -235,15 +237,19 @@ public class RequestManager implements ResponseListenerInterface {
                             jsonResponse.put("resp","OK");
 
                             JSONObject pdv = new JSONObject();
-                            pdv.put("pdv_id","1");
+                            pdv.put("id_pdv","1");
                             pdv.put("pdv_name","Tiendita la Escondida");
-                            pdv.put("pdv_address","Fraccionamiento Loma Bonita, Edo Méx. C.P. 55065");
-                            pdv.put("pdv_email","tienda_escondida@gmail.com");
-                            pdv.put("pdv_phone_number","55 10 98 14 87");
-                            pdv.put("pdv_open","5:00 a.m.");
-                            pdv.put("pdv_close","10:00 p.m.");
-                            pdv.put("pdv_latitude","19.390086");
-                            pdv.put("pdv_longitude","-99.291521");
+                            pdv.put("calle","Insurgentes");
+                            pdv.put("num_ext","45");
+                            pdv.put("localidad","centro");
+                            pdv.put("ciudad","cuernavaca");
+                            pdv.put("estado","morelos");
+                            pdv.put("pais","mexico");
+                            pdv.put("latitud","19.39012180000000000000");
+                            pdv.put("longitud","-99.29144009999999000000");
+                            pdv.put("status_visit","1");
+                            pdv.put("fecha programada inicial","1423502820");
+                            pdv.put("fecha programada final","1423502820");
 
                             jsonResponse.put("pdv_info",pdv);
 
