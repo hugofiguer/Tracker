@@ -14,7 +14,7 @@
         android:layout_marginBottom="10dp"
         android:textColor="@color/light_gray"
         android:textStyle="bold"
-        android:text="nombre:"/>
+        android:text="nombre"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -26,31 +26,81 @@
         android:layout_marginBottom="10dp"
 
         android:textColor="@color/light_gray"
-        android:text="nombre:"/>
+        android:text="descripcion"/>
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:scaleY="0.6"
-        android:scaleX="0.6"
+        android:weightSum="100"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:orientation="horizontal">
 
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:orientation="vertical">
 
-        <TimePicker
-            android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="HORA INICIAL"
+                android:gravity="center"
+                android:textColor="@color/light_gray"
+                android:textSize="@dimen/sizeNormalText"/>
+
+            <TimePicker
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/timePickerStart" />
+            </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:scaleX = ".80"
-            android:scaleY = ".80"
-            android:id="@+id/timePicker" />
-        <TimePicker
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleX = ".80"
-            android:scaleY = ".80"
-            android:id="@+id/timePicker2" />
+            android:layout_weight="50"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="HORA FINAL"
+                android:gravity="center"
+                android:textColor="@color/light_gray"
+                android:textSize="@dimen/sizeNormalText"/>
+
+            <TimePicker
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/timePickerEnd" />
+
+
+        </LinearLayout>
+
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="10dp"
+        android:gravity="center">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Finalizar actividad"
+            android:padding="10dp"
+            android:textColor="@color/light_gray"
+            android:background="@drawable/border_button_green"
+            android:id="@+id/btnEndVisit" />
+
+        </LinearLayout>
+
 
 
 </LinearLayout>

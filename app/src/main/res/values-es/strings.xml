@@ -139,6 +139,8 @@
     <!-- Rescheduled Visit -->
     <string name="title_dialog_message">Verifique la fecha</string>
     <string name="message_reschedule_visit">La fecha no debe ser anterior al día actual</string>
+    <string name="rescheduled_visit">Visita reagendada</string>
+
 
     <!-- Steps Visit / Pasos de la Visita -->
     <string name="sv_evidence">Tomar evidencia</string>

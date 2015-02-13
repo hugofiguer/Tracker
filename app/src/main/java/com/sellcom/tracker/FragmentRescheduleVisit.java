@@ -310,11 +310,12 @@ public class FragmentRescheduleVisit extends Fragment implements View.OnClickLis
 
             if (resp.getString("method").equalsIgnoreCase(METHOD.SEND_RESCHEDULED_VISIT.toString())){
 
-                Log.d("----", "--------------");
+
+                Toast.makeText(context,getString(R.string.rescheduled_visit),Toast.LENGTH_LONG).show();
 
                 getActivity().onBackPressed();
                 getActivity().onBackPressed();
-                Toast.makeText(context,utilities.getFormatDate(resp.getString("new_reschedule_date")),Toast.LENGTH_SHORT).show();
+
 
             }
 
