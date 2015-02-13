@@ -1,5 +1,6 @@
 package util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -8,10 +9,22 @@ import android.util.Base64;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-/**
- * Created by hugo.figueroa on 04/02/15.
- */
+import com.sellcom.tracker.R;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+
 public class Utilities {
+
+    private Activity activity;
+    public Utilities(){
+
+    }
+
+    public Utilities(Activity activity){
+        this.activity = activity;
+    }
 
     public static boolean isHandset(Context context) {
         return (context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
@@ -33,5 +46,34 @@ public class Utilities {
             e.getMessage();
             return null;
         }
+    }
+
+    public String getTypeStatus(String status){
+        String typeStatus = "";
+        switch (Integer.parseInt(status)){
+            case 1: //Agendada
+                typeStatus = activity.getString(R.string.status_scheduled);
+                break;
+            case 2: // Reagendada
+                typeStatus = activity.getString(R.string.status_rescheduled);
+                break;
+            default:
+                break;
+        }
+        return typeStatus;
+    }
+
+    public String getFormatDate(String fecha){
+        long fecha_entero = Long.parseLong(fecha);
+        String date = new SimpleDateFormat("dd/MM/yyyy")
+                .format(new Date(fecha_entero * 1000L));
+        return date;
+    }
+
+    public String getFormatTime(String fecha){
+        long fecha_entero = Long.parseLong(fecha);
+        String time =  new SimpleDateFormat("HH:mm")
+                .format(new Date(fecha_entero * 1000L));
+        return time;
     }
 }

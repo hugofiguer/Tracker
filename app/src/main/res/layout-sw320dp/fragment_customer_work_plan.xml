@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="8dp"
-        android:background="#d0d8d8"
+        android:background="#FAFAFA"
         >
 
         <TableRow
@@ -49,7 +49,7 @@
                 android:padding="5dip"
                 android:gravity="center|left"/>
             <TextView
-                android:id="@+id/tv_adrress"
+                android:id="@+id/txt_pdv_address"
                 android:layout_weight="1"
                 android:textColor="#000000"
                 android:padding="5dip"
@@ -88,15 +88,41 @@
             android:layout_marginTop="5dp">
 
             <TextView
-                android:id="@+id/tv_telephone"
+                android:id="@+id/tv_initial_scheduled_date"
                 android:layout_weight="0"
                 android:textColor="#000000"
                 android:textStyle="bold"
-                android:text="@string/wp_telephone"
+                android:text="@string/initial_scheduled_date"
                 android:padding="5dip"
+                android:textSize="@dimen/sizeSmallText"
                 android:gravity="center|left"/>
             <TextView
-                android:id="@+id/txt_pdv_phone_number"
+                android:id="@+id/txt_initial_scheduled_date"
+                android:layout_weight="1"
+                android:textColor="#000000"
+                android:padding="5dip" android:gravity="center|left"/>
+
+        </TableRow>
+
+
+        <TableRow
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/tv_scheduled_end_date"
+                android:layout_weight="0"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:text="@string/scheduled_end_date"
+                android:padding="5dip"
+                android:textSize="@dimen/sizeSmallText"
+                android:gravity="center|left"/>
+            <TextView
+                android:id="@+id/txt_scheduled_end_date"
                 android:layout_weight="1"
                 android:textColor="#000000"
                 android:padding="5dip" android:gravity="center|left"/>
@@ -114,6 +140,7 @@
                 android:layout_weight="1"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
+                android:layout_marginBottom="10dp"
                 android:layout_alignParentTop="true"
                 class="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_above="@+id/tableRow" />
@@ -136,15 +163,21 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:text="@string/wp_start"
+                    android:textColor="@color/light_gray"
+                    android:background="@drawable/border_button_green"
                     android:id="@+id/workP_buttonIniciar" />
 
                 <Button
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
                     android:text="@string/wp_reassign"
+                    android:textColor="@color/light_gray"
+                    android:background="@drawable/border_button_green"
                     android:id="@+id/workP_buttonReagendar" />
             </TableRow>
         </RelativeLayout>

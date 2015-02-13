@@ -9,8 +9,10 @@ package async_request;
 public enum METHOD {
     LOGIN ("login"),
     GET_WORKPLAN ("get_pdv"),
-    GET_PDV_INFO ("get_info_visit"),
-    SEND_START_VISIT ("send_start_visit")
+    GET_INFO_VISIT ("get_info_visit"),
+    GET_ACTIVITIES ("get_activities"),
+    SEND_RESCHEDULED_VISIT("reschedule_visit"),
+    LOGOUT ("logout")
     ;
 
     private final String name;

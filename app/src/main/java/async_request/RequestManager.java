@@ -27,6 +27,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -34,8 +36,8 @@ import java.util.Map;
 public class RequestManager implements ResponseListenerInterface {
 
     //Etapa de pruebas... TEST_MODE
-    public  final   boolean                                 TEST_MODE          = true;
-    //public  final   boolean                                 TEST_MODE          = false;
+    //public  final   boolean                                 TEST_MODE          = true;
+    public  final   boolean                                 TEST_MODE          = false;
 
     public  final String LOG_TAG_MANAGER    = "requestManager";
     public  final String LOG_TAG_REQUEST    = "asyncRequest";
@@ -78,6 +80,18 @@ public class RequestManager implements ResponseListenerInterface {
         return sharedPref.getString(key,"CLEAR");
     }
 
+    public Map<String,String> jsonToMap(JSONObject obj) throws JSONException {
+        Map<String, String> map = new HashMap<String, String>();
+        Iterator<?> keys        = obj.keys();
+
+        while( keys.hasNext() ){
+            String key = (String)keys.next();
+            String value = obj.getString(key);
+            map.put(key, value);
+        }
+        return  map;
+    }
+
     public void                         setActivity(Activity activity)  {this.activity    = activity;}
     public Activity getActivity()                   {return activity;}
 
@@ -117,9 +131,14 @@ public class RequestManager implements ResponseListenerInterface {
             case GET_WORKPLAN:
                 dialogMessage   = activity.getString(R.string.req_man_retrieving_pdvs);
                 break;
-            case GET_PDV_INFO:
+            case GET_INFO_VISIT:
                 dialogMessage   = activity.getString(R.string.req_man_retrieving_pdv_detail);
                 break;
+            case GET_ACTIVITIES:
+                dialogMessage   = activity.getString(R.string.req_man_retrieving_visit_activities);
+                break;
+            case SEND_RESCHEDULED_VISIT:
+                dialogMessage = activity.getString(R.string.req_man_rescheduled_visit);
             default:
                 break;
         }
@@ -231,27 +250,74 @@ public class RequestManager implements ResponseListenerInterface {
                             e.printStackTrace();
                         }
                     }
-                    else if (method == METHOD.GET_PDV_INFO){
+                    else if (method == METHOD.GET_INFO_VISIT){
                         try {
                             jsonResponse.put("success",true);
                             jsonResponse.put("resp","OK");
 
+                            JSONArray pdvs = new JSONArray();
                             JSONObject pdv = new JSONObject();
                             pdv.put("id_pdv","1");
                             pdv.put("pdv_name","Tiendita la Escondida");
-                            pdv.put("calle","Insurgentes");
-                            pdv.put("num_ext","45");
-                            pdv.put("localidad","centro");
-                            pdv.put("ciudad","cuernavaca");
-                            pdv.put("estado","morelos");
-                            pdv.put("pais","mexico");
-                            pdv.put("latitud","19.39012180000000000000");
-                            pdv.put("longitud","-99.29144009999999000000");
-                            pdv.put("status_visit","1");
-                            pdv.put("fecha programada inicial","1423502820");
-                            pdv.put("fecha programada final","1423502820");
+                            pdv.put("ad_street","Insurgentes");
+                            pdv.put("ad_ext_num","45");
+                            pdv.put("ad_locality","centro");
+                            pdv.put("ad_city","cuernavaca");
+                            pdv.put("st_state","morelos");
+                            pdv.put("cnt_country","mexico");
+                            pdv.put("ad_latitude","19.39012180000000000000");
+                            pdv.put("ad_longitude","-99.29144009999999000000");
+                            pdv.put("id_visit_status","1");
+                            pdv.put("vi_schedule_start","1423502820");
+                            pdv.put("vi_schedule_end","1424031420");
 
-                            jsonResponse.put("pdv_info",pdv);
+                            pdvs.put(pdv);
+                            jsonResponse.put("info_visit",pdvs);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }else if (method == METHOD.GET_ACTIVITIES){
+                        try {
+                            jsonResponse.put("success",true);
+                            jsonResponse.put("resp","OK");
+                            jsonResponse.put("id_visit","1");
+
+                            JSONArray pdvs = new JSONArray();
+                            for (int i=1; i<=20; i++) {
+                                JSONObject pdv = new JSONObject();
+                                pdv.put("id_activity", ""+i);
+                                pdv.put("act_name", "Servidores");
+                                pdv.put("act_description", "Colocar servidores en puntos de contol");
+
+                                pdvs.put(pdv);
+                            }
+                            JSONObject pdv = new JSONObject();
+                            pdv.put("id_activity", "8");
+                            pdv.put("act_activity", "Servidores");
+                            pdv.put("act_description", "Ajustar tiempos en servidores colocados hace 3 meses");
+
+                            pdvs.put(pdv);
+
+                            jsonResponse.put("info_activities",pdvs);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }else if (method == METHOD.SEND_RESCHEDULED_VISIT){
+                        try {
+                            jsonResponse.put("success",true);
+                            jsonResponse.put("resp","OK");
+                            jsonResponse.put("new_reschedule_date","1423502820");
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }else if (method == METHOD.LOGOUT){
+                        try {
+                            jsonResponse.put("success",true);
+                            jsonResponse.put("resp","OK");
 
                         } catch (JSONException e) {
                             e.printStackTrace();

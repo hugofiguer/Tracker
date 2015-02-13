@@ -5,6 +5,9 @@
     <dimen name="sizeMediumText">25sp</dimen>
     <dimen name="sizeLargeText">40sp</dimen>
 
-    <dimen name="navigation_drawer_width">240dp</dimen>
+    <dimen name="navigation_drawer_width">350dp</dimen>
+
+    <dimen name="dimen_text_step_visit">35sp</dimen>
+    <dimen name="dimen_item_step_visit">300dp</dimen>
 
 </resources>

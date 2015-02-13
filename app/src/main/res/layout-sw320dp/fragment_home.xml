@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:padding="8dp"
     android:orientation="vertical"
-    android:background="#333">
+    android:background="@color/app_color">
 
     <FrameLayout
         android:id="@+id/fragment_time_container"

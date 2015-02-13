@@ -1,6 +1,8 @@
 package com.sellcom.tracker;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -25,11 +27,23 @@ import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
+import async_request.METHOD;
+import async_request.RequestManager;
+import async_request.UIResponseListenerInterface;
+import database.models.Session;
+import database.models.User;
 
 
 public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, UIResponseListenerInterface {
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private int mIcon;
@@ -45,6 +59,7 @@ public class MainActivity extends ActionBarActivity
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
 
+        RequestManager.sharedInstance().setActivity(this);
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
@@ -84,6 +99,20 @@ public class MainActivity extends ActionBarActivity
                     fragment = new FragmentWorkPlan();
                 }
                 break;
+
+            case NavigationDrawerFragment.SETTINGS:
+
+                CURRENT_FRAGMENT_TAG = FragmentSettings.TAG;
+                if(fragmentManager.findFragmentByTag(CURRENT_FRAGMENT_TAG) != null)
+                    fragment = fragmentManager.findFragmentByTag(CURRENT_FRAGMENT_TAG);
+                else
+                    fragment = new FragmentSettings();
+                break;
+
+            case NavigationDrawerFragment.LOG_OUT:
+                logOut();
+                return;
+
             default:
                 return;
         }
@@ -98,11 +127,42 @@ public class MainActivity extends ActionBarActivity
         if(fragmentManager.findFragmentByTag("home") != null)
             fragmentTransaction.remove(fragmentManager.findFragmentByTag("home"));
 
+        if(fragmentManager.findFragmentByTag("trafficmap") != null)
+            fragmentTransaction.remove(fragmentManager.findFragmentByTag("trafficmap"));
+
         if(Aux != null)
             fragment = Aux;
 
         fragmentTransaction.replace(R.id.container, fragment, CURRENT_FRAGMENT_TAG).commit();
 
+    }
+
+    public void logOut() {
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        alertDialogBuilder
+                .setCancelable(false)
+                .setMessage(getString(R.string.log_out))
+                .setPositiveButton(getString(R.string.done),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                dialog.dismiss();
+                                prepareRequest(METHOD.LOGOUT,new HashMap<String, String>());
+                            }
+                        }
+                )
+                .setNegativeButton(getString(R.string.cancel),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        }
+                );
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
     public void onSectionAttached(int number) {
@@ -195,5 +255,50 @@ public class MainActivity extends ActionBarActivity
     }
 
 
+    @Override
+    public void prepareRequest(METHOD method, Map<String, String> params) {
+        /**** Request manager stub
+         * 0. Recover data from UI
+         * 1. Add credentials information
+         * 2. Set the RequestManager listener to 'this'
+         * 3. Send the request (Via RequestManager)
+         * 4. Wait for it
+         */
 
+        // 1
+        String token      = Session.getSessionActive(this).getToken();
+        String username   = User.getUser(this, Session.getSessionActive(this).getUser_id()).getEmail();
+        params.put("request", method.toString());
+        params.put("user", username);
+        params.put("token", token);
+
+        //2
+        RequestManager.sharedInstance().setListener(this);
+
+        //3
+        RequestManager.sharedInstance().makeRequestWithDataAndMethod(params, method);
+    }
+
+    @Override
+    public void decodeResponse(String stringResponse) {
+        JSONObject resp;
+
+        try {
+            resp = new JSONObject(stringResponse);
+
+            if (resp.getString("method").equalsIgnoreCase(METHOD.LOGOUT.toString())){
+                RequestManager.sharedInstance().saveInPreferencesKeyAndValue("token","CLEAR");
+                RequestManager.sharedInstance().saveInPreferencesKeyAndValue("prod_timestamp","CLEAR");
+                Session.closeSession(getApplicationContext());
+                Intent i = new Intent(MainActivity.this, Login.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+                overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 }

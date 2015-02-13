@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_color"
+    android:weightSum="100">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="30"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:background="#ccc"
+            android:gravity="center"
+            android:text="@string/new_date"
+            android:textSize="@dimen/sizeLargeText"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="@dimen/date_rescheduled"
+                android:layout_height="wrap_content"
+                android:background="#FAFAFA"
+                android:textSize="@dimen/sizeLargeText"
+                android:gravity="center"
+                android:hint="dd/mm/yyyy"
+                android:layout_marginRight="2dp"
+                android:id="@+id/txt_fecha"/>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_calendary"
+                android:layout_marginLeft="2dp"
+                android:background="@android:color/transparent"
+                android:id="@+id/imageCalendar" />
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="30"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:background="#ccc"
+            android:gravity="center"
+            android:text="@string/new_time"
+            android:textSize="@dimen/sizeLargeText"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="@dimen/date_rescheduled"
+                android:layout_height="wrap_content"
+                android:background="#FAFAFA"
+                android:gravity="center"
+                android:hint="hh-mm"
+                android:layout_marginRight="2dp"
+                android:textSize="@dimen/sizeLargeText"
+                android:id="@+id/txt_hora"/>
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/icon_reloj"
+                android:scaleType="fitCenter"
+                android:layout_marginLeft="2dp"
+                android:background="@android:color/transparent"
+                android:id="@+id/imageHora" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="40"
+        android:gravity="center"
+        android:paddingTop="30dp"
+        android:paddingBottom="30dp"
+        android:weightSum="100"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnAccept"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="40"
+            android:text="@string/accept"
+            android:textColor="@color/light_gray"
+            android:background="@drawable/border_button_green"
+            android:padding="10dp"
+            android:layout_marginRight="5dp"
+            android:textSize="@dimen/sizeMediumText"/>
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="40"
+            android:text="@string/cancel"
+            android:textColor="@color/light_gray"
+            android:background="@drawable/border_button_red"
+            android:layout_marginLeft="5dp"
+            android:padding="10dp"
+            android:textSize="@dimen/sizeMediumText"/>
+
+
+    </LinearLayout>
+
+
+
+
+
+    </LinearLayout>

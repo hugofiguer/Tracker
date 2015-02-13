@@ -35,12 +35,12 @@ import async_request.RequestManager;
 import async_request.UIResponseListenerInterface;
 import database.models.Session;
 import database.models.User;
-import util.ParentWorkPlan;
+import util.Utilities;
 
 
 public class FragmentWorkPlan extends Fragment implements UIResponseListenerInterface{
 
-    final static public String TAG = "workplan";
+    final static public String TAG = "TAG_FRAGMENT_WORK_PLAN";
     private int ChildClickStatus=-1;
 
     static Context context;
@@ -50,11 +50,11 @@ public class FragmentWorkPlan extends Fragment implements UIResponseListenerInte
 
     View view;
 
+    private Utilities utilities;
     public WorkPlanAdapter                  expandableListAdapter;
     public ExpandableListView expandableListView;
     public ImageView groupExpandlistIconCollapse;
     public ImageView                        grouoExpandlistIconExpand;
-    public ParentWorkPlan parent;
 
     protected List<String> listDataHeader;
     protected HashMap<String, List<Map<String,String>>> listDataChild;
@@ -77,6 +77,7 @@ public class FragmentWorkPlan extends Fragment implements UIResponseListenerInte
 
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<Map<String,String>>>();
+        utilities = new Utilities(getActivity());
 
         expandableListView = (ExpandableListView) view.findViewById(R.id.expList__workplan);
 
@@ -160,18 +161,12 @@ public class FragmentWorkPlan extends Fragment implements UIResponseListenerInte
             // Prepare data for ExpandableList
             if (resp.getString("method").equalsIgnoreCase(METHOD.GET_WORKPLAN.toString())){
 
-                //listDataHeader.add("06/02/2015");
-
                 JSONArray jsonArray = resp.getJSONArray("pdv_array");
 
                 //Transformar fecha(int) en string
                 JSONObject objFecha = jsonArray.getJSONObject(0);
-                long fecha = Long.parseLong(objFecha.getString("vi_schedule_start"));
-                Log.d("EN DECODERESPONSE WORKPLAN",fecha+"");
-                String fecha_visita = new SimpleDateFormat("dd/MM/yyyy")
-                        .format(new Date(fecha * 1000L));
-                Log.d("EN DECODERESPONSE WORKPLAN",fecha_visita);
-                listDataHeader.add(fecha_visita);
+
+                listDataHeader.add(utilities.getFormatDate(objFecha.getString("vi_schedule_start")));
 
                 List<Map<String,String>> visits = new ArrayList<Map<String,String>>();
                 for (int i=0; i<jsonArray.length(); i++){
@@ -189,23 +184,23 @@ public class FragmentWorkPlan extends Fragment implements UIResponseListenerInte
                 expandableListAdapter.notifyDataSetChanged();
                 expandableListView.expandGroup(0);
             }
-            else if (resp.getString("method").equalsIgnoreCase(METHOD.GET_PDV_INFO.toString())){
+            else if (resp.getString("method").equalsIgnoreCase(METHOD.GET_INFO_VISIT.toString())){
 
 
                 JSONObject obj = new JSONObject(stringResponse);
                 obj.put("id_visit",selectedData.get("id_visit"));
                 obj.put("pdv_name",selectedData.get("pdv_name"));
-                obj.put("calle",selectedData.get("calle"));
-                obj.put("num_ext",selectedData.get("num_ext"));
-                obj.put("localidad",selectedData.get("localidad"));
-                obj.put("ciudad",selectedData.get("ciudad"));
-                obj.put("estado",selectedData.get("estado"));
-                obj.put("pais",selectedData.get("pais"));
-                obj.put("latitud",selectedData.get("latitud"));
-                obj.put("longitud",selectedData.get("longitud"));
-                obj.put("status_visit",selectedData.get("status_visit"));
-                obj.put("fecha programada inicial",selectedData.get("fecha programada inicial"));
-                obj.put("fecha programada final",selectedData.get("fecha programada final"));
+                obj.put("ad_street",selectedData.get("ad_street"));
+                obj.put("ad_ext_num",selectedData.get("ad_ext_num"));
+                obj.put("ad_locality",selectedData.get("ad_locality"));
+                obj.put("ad_city",selectedData.get("ad_city"));
+                obj.put("st_state",selectedData.get("st_state"));
+                obj.put("cnt_country",selectedData.get("cnt_country"));
+                obj.put("ad_latitude",selectedData.get("ad_latitude"));
+                obj.put("ad_longitude",selectedData.get("ad_longitude"));
+                obj.put("id_visit_status",selectedData.get("id_visit_status"));
+                obj.put("vi_schedule_start",selectedData.get("vi_schedule_start"));
+                obj.put("vi_schedule_end",selectedData.get("fecha programada final"));
 
 
                 Bundle bundle = new Bundle();
@@ -214,6 +209,8 @@ public class FragmentWorkPlan extends Fragment implements UIResponseListenerInte
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 fragment = new FragmentCustomerWorkPlan();
                 fragment.setArguments(bundle);
+
+                Log.e("En WORKPLAN","----------------------------------");
 
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.slide_from_right, R.anim.shrink_out, R.anim.slide_from_left, R.anim.shrink_out);
@@ -285,42 +282,25 @@ public class FragmentWorkPlan extends Fragment implements UIResponseListenerInte
             int real_position = childPosition+1;
             ((TextView) convertView.findViewById(R.id.txv_clients_preview_num)).setText(""+real_position);
 
-            long fecha = Long.parseLong(childData.get("vi_schedule_start"));
-            String hora_visita =  new SimpleDateFormat("HH:mm")
-                    .format(new Date(fecha * 1000L));
-
             TextView txtAux = (TextView) convertView.findViewById(R.id.txt_pdv_name);
             txtAux.setText(childData.get("pdv_name"));
 
             txtAux = (TextView) convertView.findViewById(R.id.txt_pdv_time);
-            txtAux.setText(hora_visita);
-
-            //Para el status de la visita
-            String status = "";
-            switch (Integer.parseInt(childData.get("id_visit_status"))){
-                case 1: //Agendada
-                    status = getString(R.string.status_scheduled);
-                    break;
-                case 2: // Re agendada
-                    status = getString(R.string.status_rescheduled);
-                    break;
-                default:
-                    break;
-            }
+            txtAux.setText(utilities.getFormatTime(childData.get("vi_schedule_start")));
 
             txtAux = (TextView) convertView.findViewById(R.id.txt_pdv_status);
-            txtAux.setText(status);
+            txtAux.setText(utilities.getTypeStatus(childData.get("id_visit_status")));
 
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //Toast.makeText(context, "Clicked on Detail " + childPosition, Toast.LENGTH_LONG).show();
-                    boolean fromWS = false;
+                    boolean fromWS = true;
                     if (fromWS){
                         selectedData                    = childData;
                         final Map<String, String> params = new HashMap<String, String>();
                         params.put("id_visit", childData.get("id_visit"));
-                        prepareRequest(METHOD.GET_PDV_INFO,params);
+                        prepareRequest(METHOD.GET_INFO_VISIT,params);
                     }
                     else{
                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

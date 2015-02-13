@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp"
-        android:background="#333">
+        android:background="@color/app_color">
 
         <ImageView
             android:id="@+id/profile_picture"
@@ -45,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:choiceMode="singleChoice"
-        android:background="#A0AAAAAA"
+        android:background="#FAFAFA"
         android:divider="@null"
         tools:context="com.sellcom.tracker.NavigationDrawerFragment"/>
 

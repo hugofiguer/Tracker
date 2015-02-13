@@ -3,8 +3,14 @@
     <dimen name="sizeSmallText">12sp</dimen>
     <dimen name="sizeNormalText">15sp</dimen>
     <dimen name="sizeMediumText">20sp</dimen>
-    <dimen name="sizeLargeText">30sp</dimen>
+    <dimen name="sizeLargeText">25sp</dimen>
 
     <dimen name="navigation_drawer_width">220dp</dimen>
+
+    <dimen name="date_rescheduled">200dp</dimen>
+
+
+    <dimen name="dimen_text_step_visit">20sp</dimen>
+    <dimen name="dimen_item_step_visit">180dp</dimen>
 
 </resources>

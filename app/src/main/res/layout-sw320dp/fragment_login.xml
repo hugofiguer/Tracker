@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:background="#333">
+    android:background="#FAFAFA">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -73,7 +73,7 @@
             android:paddingBottom="10dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:background="@color/green"
+            android:background="@drawable/border_green"
             android:textColor="@color/white"
             android:text="@string/log_in"
             android:textSize="@dimen/sizeMediumText"

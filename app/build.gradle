@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.sellcom.tracker"
-        minSdkVersion 13
+        minSdkVersion 14
         targetSdkVersion 19
         versionCode 1
         versionName "1.0"

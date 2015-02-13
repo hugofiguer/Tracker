@@ -8,7 +8,7 @@
 
     <style name="MyActionBar"
         parent="@style/Widget.AppCompat.ActionBar.Solid">
-        <item name="android:background">#333</item>
+        <item name="android:background">@color/app_color</item>
     </style>
 
     <style name="DialogAnimations">

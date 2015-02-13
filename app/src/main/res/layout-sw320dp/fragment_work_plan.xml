@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/expList__workplan"
-        android:background="#d0d8d8"
+        android:background="#FAFAFA"
         android:indicatorRight="40dp"
         android:groupIndicator="@color/zxing_transparent"
         android:childDivider="#627fa5"

@@ -2,6 +2,7 @@ package com.sellcom.tracker;
 
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,7 @@ import android.widget.LinearLayout;
 import util.Utilities;
 
 
-public class FragmentTraffic extends android.support.v4.app.Fragment {
+public class FragmentTraffic extends Fragment {
 
     LinearLayout buttonShowTraffic;
 
@@ -27,7 +28,7 @@ public class FragmentTraffic extends android.support.v4.app.Fragment {
                 public void onClick(View view) {
 
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    android.support.v4.app.Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                    Fragment prev = getFragmentManager().findFragmentByTag("dialog");
                     if (prev != null) {
                         ft.remove(prev);
                     }

@@ -4,9 +4,7 @@ import android.util.Log;
 
 import com.sellcom.tracker.BuildConfig;
 
-/**
- * Created by jcenteno on 12/05/14.
- */
+
 public class LogUtil {
 
     private static final String LOG_PREFIX = "TRACKER_";

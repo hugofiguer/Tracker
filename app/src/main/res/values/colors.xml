@@ -17,4 +17,12 @@
     <color name="blue">#0000FF</color>
     <color name="navy">#000080</color>
     <color name="black">#000000</color>
+
+    <color name="app_color">#333333</color>
+    <color name="light_green">#1ac666</color>
+    <color name="light_yellow">#F3F781</color>
+    <color name="dark_green">#088A4B</color>
+    <color name="dark_red">#B40404</color>
+
+    <color name="light_gray">#D8D8D8</color>
 </resources>

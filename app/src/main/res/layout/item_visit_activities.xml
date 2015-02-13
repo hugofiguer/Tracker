@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="#FAFAFA"
+    android:gravity="center"
+    android:weightSum="100"
+    >
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_weight="12"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:id="@+id/relativelayout_number">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:background="#BDBDBD"
+            android:text=" 00 "
+            android:textSize="@dimen/sizeMediumText"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:id="@+id/txt_activities_preview_num"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"/>
+
+    </RelativeLayout>
+
+    <TableLayout
+        android:id="@+id/tableL_data"
+        android:layout_width="0dp"
+        android:layout_weight="88"
+        android:layout_marginLeft="15dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_gravity="left"
+        >
+
+        <TableRow
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:id="@+id/txt_activity_name"
+                android:layout_weight="0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="7dp"
+                android:text="Nombre"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:textSize="@dimen/sizeMediumText"
+                />
+        </TableRow>
+
+        <TableRow
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content">
+
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/txt_activity_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="descripcion"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/sizeNormalText"
+                android:layout_marginRight="2dp"
+                />
+
+        </TableRow>
+
+    </TableLayout>
+
+
+
+
+</LinearLayout>

@@ -9,6 +9,7 @@
     <string name="navigation_drawer_close">Cerrar navigation drawer</string>
     <string name="action_example">Ejemplo de Acción</string>
     <string name="action_settings">Ajustes</string>
+    <string name="log_out">¿Cerrar sesión?</string>
 
     <string-array name="drawer_titles">
         <item>Inicio</item>
@@ -17,6 +18,11 @@
         <item>Ajustes</item>
         <item>Cerrar Sesión</item>
     </string-array>
+
+    <!--Module settings-->
+    <string name="language">Idioma</string>
+    <string name="spanish_label">Español</string>
+    <string name="english_label">Inglés</string>
 
     <!--Module login-->
     <string name="log_in">Ingresar</string>
@@ -27,9 +33,10 @@
     <!-- RequestManager strings -->
     <string name="req_man_error_contacting_service">Error contactando el Servicio</string>
     <string name="req_man_login_info_error">Error de usuario o contraseña</string>
-    <string name="req_man_retrieving_pdvs">Consultando información de puntos de venta</string>
-    <string name="req_man_retrieving_pdv_detail">Consultando detalle de punto de venta</string>
-    <string name="req_man_retrieving_products_list">Consultando información de productos</string>
+    <string name="req_man_retrieving_pdvs">Consultando información de puntos de visita</string>
+    <string name="req_man_retrieving_pdv_detail">Consultando detalle de punto de visita</string>
+    <string name="req_man_retrieving_visit_activities">Consultando actividades de la visita</string>
+    <string name="req_man_rescheduled_visit">Reagendando visita</string>
 
     <!--Error messages-->
     <string name="error_empty_field">Llena este campo</string>
@@ -113,10 +120,29 @@
     <string name="wp_item_status">ESTATUS: </string>
     <string name="status_scheduled">Agendada</string>
     <string name="status_rescheduled">Reagendada</string>
+    <string name="wp_start"    > INICIAR </string>
+    <string name="wp_reassign" > REAGENDAR</string>
 
     <!-- Customer Work Plan -->
     <string name="wp_customer" > CLIENTE </string>
     <string name="wp_status" > STATUS </string>
     <string name="wp_address"  > DIRECCION  </string>
+    <string name="initial_scheduled_date">FECHA PROGRAMADA INICIAL</string>
+    <string name="scheduled_end_date">FECHA PROGRAMADA FINAL</string>
+
+    <!-- Visit Activities  -->
+    <string name="activity_header">ACTIVIDADES</string>
+    <string name="new_date">Nueva Fecha</string>
+    <string name="new_time">Nueva Hora</string>
+    <string name="accept">Aceptar</string>
+
+    <!-- Rescheduled Visit -->
+    <string name="title_dialog_message">Verifique la fecha</string>
+    <string name="message_reschedule_visit">La fecha no debe ser anterior al día actual</string>
+
+    <!-- Steps Visit / Pasos de la Visita -->
+    <string name="sv_evidence">Tomar evidencia</string>
+    <string name="sv_activities">Actividades de la visita</string>
+    <string name="sv_form">Formularios</string>
 
 </resources>

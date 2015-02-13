@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#FFFFFF"
+        android:textColor="#555555"
         android:textSize="@dimen/sizeNormalText"
         android:layout_marginRight="56dp"
         android:id="@+id/item_text_view_drawer"/>
