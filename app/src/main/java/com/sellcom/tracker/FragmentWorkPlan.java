@@ -16,6 +16,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -225,6 +226,7 @@ public class FragmentWorkPlan extends Fragment implements UIResponseListenerInte
 
         } catch (JSONException e) {
             e.printStackTrace();
+            Utilities.showErrorDialog(getActivity().getString(R.string.req_man_error_contacting_service), this.getActivity());
         }
 
     }
@@ -280,9 +282,15 @@ public class FragmentWorkPlan extends Fragment implements UIResponseListenerInte
             convertView.setTag(childPosition);
 
             int real_position = childPosition+1;
-            ((TextView) convertView.findViewById(R.id.txv_clients_preview_num)).setText(""+real_position);
 
-            TextView txtAux = (TextView) convertView.findViewById(R.id.txt_pdv_name);
+            TextView txtAux = (TextView) convertView.findViewById(R.id.txv_clients_preview_num);
+            txtAux.setText(""+real_position);
+            txtAux.setBackgroundResource(R.color.green);
+            if(utilities.getTypeStatus(childData.get("id_visit_status")).equals(getString(R.string.status_rescheduled))){
+                txtAux.setBackgroundResource(R.color.reschedule_visit);
+            }
+
+            txtAux = (TextView) convertView.findViewById(R.id.txt_pdv_name);
             txtAux.setText(childData.get("pdv_name"));
 
             txtAux = (TextView) convertView.findViewById(R.id.txt_pdv_time);

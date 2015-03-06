@@ -75,7 +75,7 @@ public class FragmentRescheduleVisit extends Fragment implements View.OnClickLis
 
         context = getActivity();
         fecha = (TextView)view.findViewById(R.id.txt_fecha);
-        fecha.setTextColor(getResources().getColor(R.color.black));
+        fecha.setTextColor(getResources().getColor(R.color.white));
         fecha.setClickable(true);
 
         // Asignar fecha actual a textview en formato dd/mm/yyyy
@@ -87,7 +87,7 @@ public class FragmentRescheduleVisit extends Fragment implements View.OnClickLis
         imageCalendar.setOnClickListener(this);
 
         hora = (TextView)view.findViewById(R.id.txt_hora);
-        hora.setTextColor(getResources().getColor(R.color.black));
+        hora.setTextColor(getResources().getColor(R.color.white));
         hora.setClickable(true);
 
         // Asignar hora actual a textview en formato hh:mm
@@ -115,8 +115,6 @@ public class FragmentRescheduleVisit extends Fragment implements View.OnClickLis
         switch (view.getId()){
             case R.id.txt_fecha:
             case R.id.imageCalendar:
-                fecha.setClickable(false);
-                imageCalendar.setClickable(false);
                 // Process to get Current Date
 
                 // Lanzar Date Picker Dialog
@@ -145,8 +143,6 @@ public class FragmentRescheduleVisit extends Fragment implements View.OnClickLis
 
             case R.id.txt_hora:
             case R.id.imageHora:
-                hora.setClickable(false);
-                imageClock.setClickable(false);
 
                 // Lanzar Time Picker Dialog
                 TimePickerDialog tpd = new TimePickerDialog(context,
@@ -164,6 +160,7 @@ public class FragmentRescheduleVisit extends Fragment implements View.OnClickLis
                             }
                         }, hour,minutes,true);
                 tpd.setCancelable(false);
+                tpd.setIcon(getResources().getDrawable(R.drawable.icon_reloj));
                 tpd.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 tpd.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
                 tpd.show();

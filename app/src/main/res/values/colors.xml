@@ -24,5 +24,12 @@
     <color name="dark_green">#088A4B</color>
     <color name="dark_red">#B40404</color>
 
-    <color name="light_gray">#D8D8D8</color>
+    <color name="light_gray">#DAD8D8</color>
+    <color name="reschedule_visit">#FFBF00</color>
+
+    <color name="dark_gray">#425767</color>
+    <color name="gray_enable">#BDBDBD</color>
+
+    <color name="background_items">#53585B</color>
+
 </resources>

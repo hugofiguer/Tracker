@@ -1,10 +1,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@color/app_color">
 
     <TextView
+        android:id="@+id/txt_act_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/sizeLargeText"
@@ -15,18 +16,6 @@
         android:textColor="@color/light_gray"
         android:textStyle="bold"
         android:text="nombre"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/sizeMediumText"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp"
-
-        android:textColor="@color/light_gray"
-        android:text="descripcion"/>
 
 
     <LinearLayout
@@ -86,18 +75,36 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginBottom="10dp"
+        android:paddingBottom="20dp"
+        android:orientation="horizontal"
+        android:weightSum="100"
         android:gravity="center">
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Finalizar actividad"
+            android:layout_weight="50"
+            android:text="@string/finalize_activity"
             android:padding="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
             android:textColor="@color/light_gray"
             android:background="@drawable/border_button_green"
             android:id="@+id/btnEndVisit" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:text="@string/cancel"
+            android:padding="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/light_gray"
+            android:background="@drawable/border_button_red"
+            android:id="@+id/btnCancelVisit" />
 
         </LinearLayout>
 

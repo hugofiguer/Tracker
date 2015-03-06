@@ -20,7 +20,7 @@ public class NotePad extends EditText {
         mRect = new Rect();
         mPaint = new Paint();
         mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        mPaint.setColor(Color.parseColor("#04B45F")); //SET YOUR OWN COLOR HERE
+        mPaint.setColor(Color.parseColor("#f0c42b")); //SET YOUR OWN COLOR HERE
         mPaint.setStrokeWidth(4.0f);
     }
 

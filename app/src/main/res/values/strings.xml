@@ -14,7 +14,6 @@
     <string-array name="drawer_titles">
         <item>Home</item>
         <item>Work Plan</item>
-        <item>Visits</item>
         <item>Settings</item>
         <item>Log out</item>
     </string-array>
@@ -38,6 +37,11 @@
     <string name="req_man_retrieving_pdv_detail">Retrieving Sales Point Details</string>
     <string name="req_man_retrieving_visit_activities">Retrieving Visit Activities</string>
     <string name="req_man_rescheduled_visit">Rescheduled Visit</string>
+    <string name="req_man_ending__activity">Ending Activity</string>
+    <string name="req_man_retrieving_evidence_type">Retrieving Evidence Type</string>
+    <string name="req_man_sending_evidence">Sending Evidence, \nIt may take a few minutes</string>
+    <string name="req_man_downloading_user_information">Downloading User Information</string>
+    <string name="req_man_downloading_form">Downloading Form</string>
 
     <!-- Error messages -->
     <string name="error_empty_field">Complete this field</string>
@@ -125,8 +129,7 @@
     <string name="wp_item_status">STATUS: </string>
     <string name="status_scheduled">Scheduled</string>
     <string name="status_rescheduled">Rescheduled</string>
-    <string name="wp_start"> INITIATE </string>
-    <string name="wp_reassign"> REASSIGN</string>
+    <string name="wp_start"> Start </string>
 
     <!-- Customer Work Plan -->
     <string name="wp_customer"> CUSTOMER </string>
@@ -140,6 +143,7 @@
     <string name="new_date">New Date</string>
     <string name="new_time">New Time</string>
     <string name="accept">Accept</string>
+    <string name="finished_activity">Finished activity</string>
 
     <!-- Rescheduled Visit -->
     <string name="title_dialog_message">Check it</string>
@@ -150,5 +154,18 @@
     <string name="sv_evidence">Take evidence</string>
     <string name="sv_activities">Visit activities</string>
     <string name="sv_form">Forms</string>
+    <string name="sv_reassign">Reassing</string>
+    <string name="sv_finalize_visit">Finalize Visit</string>
+    <string name="success_activities">\n\nAll activities have been carried out\n\n</string>
+
+    <!-- DialogVisitActivity - Dialogo de actividades de la visita -->
+    <string name="message_dialog_time">The start time should be less than the end time</string>
+    <string name="assigned_time">Assigned time</string>
+    <string name="finalize_activity">Finalize activity</string>
+
+    <!-- FragmentEvidence / Fragment Evidencia -->
+    <string name="text_camera">Take picture</string>
+    <string name="retry">Retry</string>
+    <string name="please_take_picture">Please take a picture to continue</string>
 
 </resources>

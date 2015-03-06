@@ -156,29 +156,24 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginRight="8dp"
-                android:id="@+id/tableRow">
+                android:id="@+id/tableRow"
+                android:weightSum="100"
+                android:orientation="horizontal">
 
 
                 <Button
-                    android:layout_width="fill_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginRight="5dp"
-                    android:layout_weight="1"
+                    android:layout_weight="80"
                     android:text="@string/wp_start"
+                    android:textSize="@dimen/sizeMediumText"
                     android:textColor="@color/light_gray"
                     android:background="@drawable/border_button_green"
                     android:id="@+id/workP_buttonIniciar" />
 
-                <Button
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="5dp"
-                    android:text="@string/wp_reassign"
-                    android:textColor="@color/light_gray"
-                    android:background="@drawable/border_button_green"
-                    android:id="@+id/workP_buttonReagendar" />
+
             </TableRow>
         </RelativeLayout>
 

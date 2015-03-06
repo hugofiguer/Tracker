@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -38,9 +39,9 @@ public class FragmentLogin extends Fragment implements View.OnClickListener, UIR
     private Context context;
     private EditText txt_emailUser,txt_passwordUser;
     private Button boton;
-    String          textEmail;
-    String          textPassword;
+    private String textEmail,textPassword,usr_name,usr_email;
     int user_id;
+
 
     public FragmentLogin() {
         // Required empty public constructor
@@ -54,7 +55,6 @@ public class FragmentLogin extends Fragment implements View.OnClickListener, UIR
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         context = getActivity();
 
-
         boton = (Button)view.findViewById(R.id.sign_in_button);
         boton.setOnClickListener(this);
 
@@ -62,6 +62,9 @@ public class FragmentLogin extends Fragment implements View.OnClickListener, UIR
         txt_emailUser.setOnClickListener(this);
         txt_passwordUser = (EditText)view.findViewById(R.id.passwordUser);
         txt_passwordUser.setOnClickListener(this);
+
+        txt_emailUser.setText("markitos");
+        txt_passwordUser.setText("12345");
 
         return view;
     }
@@ -113,8 +116,10 @@ public class FragmentLogin extends Fragment implements View.OnClickListener, UIR
     }
 
     public void startMainActivity(){
-        Intent i = new Intent(context, MainActivity.class);
-        startActivity(i);
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra("usr_name",usr_name);
+        intent.putExtra("usr_email",usr_email);
+        startActivity(intent);
         getActivity().overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
     }
 
@@ -140,7 +145,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener, UIR
         RequestManager.sharedInstance().setListener(this);
 
         //3
-        RequestManager.sharedInstance().makeRequestWithDataAndMethod(params, method.LOGIN);
+        RequestManager.sharedInstance().makeRequestWithDataAndMethod(params, method);
 
     }
 
@@ -154,42 +159,73 @@ public class FragmentLogin extends Fragment implements View.OnClickListener, UIR
             resp        = new JSONObject(stringResponse);
 
             if (resp.getString("method").equalsIgnoreCase(METHOD.LOGIN.toString())) {
-                txt_emailUser.setText("");
-                txt_passwordUser.setText("");
-                Log.e("ABCDEFG","EN IFDECODERESPONSE");
-                String textToken = resp.getString("token");
 
-                TelephonyManager telephonyManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
-                telephonyManager.getDeviceId();
+                    if(resp.getString("success").equalsIgnoreCase("true")){
+                        Log.e("ABCDEFG","EN IFDECODERESPONSE");
+                        String textToken = resp.getString("token");
 
-                // Force to salesman profile
-                int profileId = 2;
-                String profileName = "Level 1";
-                Cursor user = User.getUserForEmail(context, textEmail);
-                if (user != null && user.getCount() > 0) {
-                    user_id = user.getInt(user.getColumnIndex(User.ID));
+                        TelephonyManager telephonyManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+                        telephonyManager.getDeviceId();
 
-                    Session.closeSession(context);
-                    Session.updateToken(context, 1, "fecha", textToken, android.os.Build.MODEL + " - " + telephonyManager.getDeviceId(), user_id);
+                        // Force to salesman profile
+                        int profileId = 2;
+                        String profileName = "Level 1";
+                        Cursor user = User.getUserForEmail(context, textEmail);
+                        if (user != null && user.getCount() > 0) {
+                            user_id = user.getInt(user.getColumnIndex(User.ID));
 
-                } else {
+                            Session.closeSession(context);
+                            Session.updateToken(context, 1, "fecha", textToken, android.os.Build.MODEL + " - " + telephonyManager.getDeviceId(), user_id);
 
-                    long userId = User.insert(getActivity(), textEmail, textPassword, profileId, 0);
-                    Session.closeSession(context);
-                    Session.insert(context, 1, "date", textToken, "001", (int) userId);
+                        } else {
 
-                    Profile.insert(context, profileId, profileName);
+                            long userId = User.insert(getActivity(), textEmail, textPassword, profileId, 0);
+                            Session.closeSession(context);
+                            Session.insert(context, 1, "date", textToken, "001", (int) userId);
 
-                    if (profileId == 1)
-                        Permission.setFullPermission(context, profileName);
-                    else
-                        Permission.setBasicPermission(context, profileName);
+                            Profile.insert(context, profileId, profileName);
+
+                            if (profileId == 1)
+                                Permission.setFullPermission(context, profileName);
+                            else
+                                Permission.setBasicPermission(context, profileName);
+                        }
+
+                        prepareRequest(METHOD.GET_USER_INFO,new HashMap<String, String>());
+                    }else{
+
                     }
 
 
-                }
+            }else if (resp.getString("method").equalsIgnoreCase(METHOD.GET_USER_INFO.toString())) {
 
-            startMainActivity();
+                    if(resp.getString("success").equalsIgnoreCase("true")){
+
+                        JSONArray act_array = resp.getJSONArray("user_info");
+                        String strArray     = act_array.toString();
+
+                        try {
+                            JSONArray jsonArray = new JSONArray(strArray);
+
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject object          = jsonArray.getJSONObject(i);
+                                usr_email = object.getString("usr_email");
+                                usr_name = object.getString("usr_name");
+
+                            }
+
+                            startMainActivity();
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }else{
+
+                    }
+
+            }
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }

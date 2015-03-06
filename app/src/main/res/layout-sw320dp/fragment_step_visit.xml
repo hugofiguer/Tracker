@@ -19,24 +19,28 @@
         android:layout_height="0dp"
         android:layout_weight="20"
         android:orientation="horizontal"
+        android:weightSum="100"
         android:gravity="center">
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="50"
             android:layout_marginRight="5dp"
-            android:text="Posponer visita"
-            android:padding="5dp"
+            android:layout_marginLeft="10dp"
+            android:text="@string/sv_reassign"
+            android:textSize="@dimen/sizeMediumText"
             android:textColor="@color/light_gray"
             android:background="@drawable/border_button_green"
-            android:textSize="@dimen/sizeMediumText"
-            android:id="@+id/button" />
+            android:id="@+id/workP_buttonReagendar" />
+
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:layout_marginRight="10dp"
             android:layout_marginLeft="5dp"
-            android:padding="5dp"
-            android:text="Finalizar visita"
+            android:text="@string/sv_finalize_visit"
             android:textColor="@color/light_gray"
             android:background="@drawable/border_button_red"
             android:textSize="@dimen/sizeMediumText"

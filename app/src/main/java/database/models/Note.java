@@ -31,7 +31,7 @@ public class Note extends Table {
 
     public static Cursor getAll(Context context) {
 
-        Cursor cursor = DataBaseAdapter.getDB(context).query(TABLE, null, null, null, null, null, TIMESTAMP + " DESC");
+        Cursor cursor = DataBaseAdapter.getDB(context).query(TABLE, null, USER_ID+"="+Session.getSessionActive(context).getId(), null, null, null, TIMESTAMP + " DESC");
         if (cursor.getCount() > 0)
             cursor.moveToFirst();
 
@@ -41,7 +41,7 @@ public class Note extends Table {
 
     public static Cursor getNote(Context context, String id) {
 
-        Cursor cursor = DataBaseAdapter.getDB(context).query(TABLE, null, ID+"="+id, null, null, null, null);
+        Cursor cursor = DataBaseAdapter.getDB(context).query(TABLE, null, "("+ID+"="+id +") and ("+USER_ID+"="+Session.getSessionActive(context).getId()+")", null, null, null, null);
         if (cursor.getCount() > 0)
             cursor.moveToFirst();
 

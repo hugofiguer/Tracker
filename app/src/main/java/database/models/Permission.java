@@ -51,7 +51,6 @@ public class Permission extends Table {
 
         Profile.addPermission(context, profileName, NavigationDrawerFragment.HOME);
         Profile.addPermission(context, profileName, NavigationDrawerFragment.WORK_PLAN);
-        Profile.addPermission(context, profileName, NavigationDrawerFragment.VISITS);
         Profile.addPermission(context, profileName, NavigationDrawerFragment.SETTINGS);
         Profile.addPermission(context, profileName, NavigationDrawerFragment.LOG_OUT);
     }

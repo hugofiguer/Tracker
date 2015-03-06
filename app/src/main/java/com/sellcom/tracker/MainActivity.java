@@ -52,6 +52,8 @@ public class MainActivity extends ActionBarActivity
     Fragment fragment;
     public int depthCounter = 0;
     public boolean isDrawerOpen;
+    private Bundle bundle;
+    private String user,email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +62,21 @@ public class MainActivity extends ActionBarActivity
         setContentView(R.layout.activity_main);
 
         RequestManager.sharedInstance().setActivity(this);
+
+        //Para los datos del header en el NavigationDrawer
+        //0-- - - - - - - -- - - - -- - - - -- - -- - - - -- - - - - -- - - -- - - -- - - - -- --- -
+        bundle = getIntent().getExtras();
+
+        Log.v("mainks - - - - - -",""+bundle.getString("usr_email")+" - - - - - "+ bundle.getString("usr_name"));
+        email = bundle.getString("usr_email");
+        user= bundle.getString("usr_name");
+        //1-- - - - - - - -- - - - -- - - - -- - -- - - - -- - - - - -- - - -- - - -- - - - -- --- -
+
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+
+        mNavigationDrawerFragment.setArgumentsUser(user,email);
+
         mTitle = getTitle();
         mIcon = R.drawable.ic_launcher;
 
@@ -69,6 +84,12 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        //Para los datos del header en el NavigationDrawer
+        //0-- - - - - - - -- - - - -- - - - -- - -- - - - -- - - - - -- - - -- - - -- - - - -- --- -
+
+        //mNavigationDrawerFragment.setArguments(bundleUser);
+        //1-- - - - - - - -- - - - -- - - - -- - -- - - - -- - - - - -- - - -- - - -- - - - -- --- -
 
         mNavigationDrawerFragment.selectItem(0);
     }
@@ -94,7 +115,8 @@ public class MainActivity extends ActionBarActivity
 
                 CURRENT_FRAGMENT_TAG = FragmentWorkPlan.TAG;
                 if(fragmentManager.findFragmentByTag(CURRENT_FRAGMENT_TAG) != null){
-                    fragment = fragmentManager.findFragmentByTag(CURRENT_FRAGMENT_TAG);
+                    //fragment = fragmentManager.findFragmentByTag(CURRENT_FRAGMENT_TAG);
+                    fragment = new FragmentWorkPlan();
                 }else{
                     fragment = new FragmentWorkPlan();
                 }
@@ -239,6 +261,8 @@ public class MainActivity extends ActionBarActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         super.onActivityResult(requestCode,resultCode,data);
+
+
 
         if (resultCode == RESULT_OK) {
             FragmentManager         manager         = getSupportFragmentManager();

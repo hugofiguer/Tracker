@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linear_activity"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -19,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:background="#BDBDBD"
+            android:background="@color/gray_enable"
             android:text=" 00 "
             android:textSize="@dimen/sizeMediumText"
             android:textStyle="bold"
@@ -35,7 +36,7 @@
     <TableLayout
         android:id="@+id/tableL_data"
         android:layout_width="0dp"
-        android:layout_weight="88"
+        android:layout_weight="73"
         android:layout_marginLeft="15dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="2dp"
@@ -80,6 +81,14 @@
         </TableRow>
 
     </TableLayout>
+
+    <ImageView
+        android:id="@+id/imgCheck"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="15"
+        android:layout_marginRight="5dp"
+        android:scaleType="centerInside"/>
 
 
 

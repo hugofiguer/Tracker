@@ -14,7 +14,6 @@
     <string-array name="drawer_titles">
         <item>Inicio</item>
         <item>Plan de Trabajo</item>
-        <item>Visitas</item>
         <item>Ajustes</item>
         <item>Cerrar Sesión</item>
     </string-array>
@@ -37,6 +36,11 @@
     <string name="req_man_retrieving_pdv_detail">Consultando detalle de punto de visita</string>
     <string name="req_man_retrieving_visit_activities">Consultando actividades de la visita</string>
     <string name="req_man_rescheduled_visit">Reagendando visita</string>
+    <string name="req_man_ending__activity">Terminando la actividad</string>
+    <string name="req_man_retrieving_evidence_type">Consultando tipo de evidencia</string>
+    <string name="req_man_sending_evidence">Enviando evidencia, \nPuede tardar unos minutos</string>
+    <string name="req_man_downloading_user_information">Descargando información de usuario</string>
+    <string name="req_man_downloading_form">Descargando Formulario</string>
 
     <!--Error messages-->
     <string name="error_empty_field">Llena este campo</string>
@@ -120,8 +124,7 @@
     <string name="wp_item_status">ESTATUS: </string>
     <string name="status_scheduled">Agendada</string>
     <string name="status_rescheduled">Reagendada</string>
-    <string name="wp_start"    > INICIAR </string>
-    <string name="wp_reassign" > REAGENDAR</string>
+    <string name="wp_start"    >Iniciar </string>
 
     <!-- Customer Work Plan -->
     <string name="wp_customer" > CLIENTE </string>
@@ -135,6 +138,7 @@
     <string name="new_date">Nueva Fecha</string>
     <string name="new_time">Nueva Hora</string>
     <string name="accept">Aceptar</string>
+    <string name="finished_activity">Actividad finalizada</string>
 
     <!-- Rescheduled Visit -->
     <string name="title_dialog_message">Verifique la fecha</string>
@@ -146,5 +150,17 @@
     <string name="sv_evidence">Tomar evidencia</string>
     <string name="sv_activities">Actividades de la visita</string>
     <string name="sv_form">Formularios</string>
+    <string name="sv_reassign" >Reagendar</string>
+    <string name="sv_finalize_visit">Finalizar visita</string>
+    <string name="success_activities">\n\nTodas las actividades han sido realizadas\n\n</string>
 
+    <!-- DialogVisitActivity - Dialogo de actividades de la visita -->
+    <string name="message_dialog_time">La hora inicial debe ser menor que la hora final</string>
+    <string name="assigned_time">Hora asignada</string>
+    <string name="finalize_activity">Finalizar actividad</string>
+
+    <!-- FragmentEvidence / Fragment Evidencia -->
+    <string name="text_camera">Tomar foto</string>
+    <string name="retry">Reintentar</string>
+    <string name="please_take_picture">Por favor tome una fotografia para continuar</string>
 </resources>

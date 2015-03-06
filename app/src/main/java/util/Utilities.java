@@ -1,11 +1,14 @@
 package util;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
@@ -75,5 +78,20 @@ public class Utilities {
         String time =  new SimpleDateFormat("HH:mm")
                 .format(new Date(fecha_entero * 1000L));
         return time;
+    }
+
+    //Mi mensaje de error..... PARA MI DIALOG
+    //Si no hay internet y un servicio web no puede recuperarse este dialogo aparecera
+    public static void showErrorDialog(String errorMessage, final Activity activity){
+        Log.d("ShowErrorDialog", "Error message: " + errorMessage);
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle("Error");
+        builder.setMessage(errorMessage);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }

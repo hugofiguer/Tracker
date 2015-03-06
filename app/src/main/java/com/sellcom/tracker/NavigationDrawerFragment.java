@@ -45,9 +45,8 @@ public class NavigationDrawerFragment extends Fragment {
 
     public static final int HOME        = 0;
     public static final int WORK_PLAN   = 1;
-    public static final int VISITS      = 2;
-    public static final int SETTINGS    = 3;
-    public static final int LOG_OUT     = 4;
+    public static final int SETTINGS    = 2;
+    public static final int LOG_OUT     = 3;
 
 
     /**
@@ -63,11 +62,13 @@ public class NavigationDrawerFragment extends Fragment {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerListView;
     private View mFragmentContainerView;
+    private TextView user_name,user_email;
 
     private int mCurrentSelectedPosition = -1;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
     private List<Integer> permissions;
+    private String usr_name,usr_email;
 
     public NavigationDrawerFragment() {
     }
@@ -101,13 +102,16 @@ public class NavigationDrawerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         permissions = new ArrayList<Integer>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 4; i++) {
             permissions.add(i);
         }
         MyAdapter myadapter = new MyAdapter(getActivity(), permissions);
         View view = inflater.inflate(
                 R.layout.fragment_navigation_drawer, container, false);
         if(view != null) {
+
+            user_name = (TextView)view.findViewById(R.id.user_name);
+            user_email = (TextView)view.findViewById(R.id.user_mail);
 
             mDrawerListView = (ListView) view.findViewById(R.id.drawer_list);
             mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -279,6 +283,16 @@ public class NavigationDrawerFragment extends Fragment {
 
     private ActionBar getActionBar() {
         return ((ActionBarActivity) getActivity()).getSupportActionBar();
+    }
+
+    public void setArgumentsUser(String user, String email){
+
+        usr_name = user;
+        usr_email = email;
+
+        user_name.setText(usr_name);
+        user_email.setText(usr_email);
+
     }
 
     /**

@@ -2,6 +2,7 @@ package com.sellcom.tracker;
 
 
 import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -31,17 +32,18 @@ import database.models.User;
 import util.VisitActivitiesAdapter;
 
 
-public class FragmentVisitActivities extends Fragment implements AdapterView.OnItemClickListener, UIResponseListenerInterface{
+public class FragmentVisitActivities extends Fragment implements AdapterView.OnItemClickListener{
 
     final static public String TAG = "TAG_FRAGMENT_VISIT_ACTIVITIES";
 
     static Context context;
     public Fragment fragment;
-    public FragmentTransaction fragmentTransaction;
-    public FragmentManager fragmentManager;
-
     List<Map<String,String>> elementsList;
     private ListView listActivities;
+    private String id_visit;
+    private int[] status = null;
+    //private int position;
+    private String jsonObjectActivities;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,79 +51,72 @@ public class FragmentVisitActivities extends Fragment implements AdapterView.OnI
         // Inflate the layout for this fragment
         context = getActivity().getApplicationContext();
 
+        elementsList   = new ArrayList<Map<String, String>>();
+        id_visit = getArguments().getString("id_visit");
+        jsonObjectActivities = getArguments().getString("jsonObjectActivities");
 
-        prepareRequest(METHOD.GET_ACTIVITIES,new HashMap<String, String>());
 
         View view = inflater.inflate(R.layout.fragment_visit_activities, container, false);
         listActivities = (ListView)view.findViewById(R.id.list_visit_activities);
-
-
         listActivities.setOnItemClickListener(this);
 
-
-
+        getActivities(jsonObjectActivities);
+        view.refreshDrawableState();
         return view;
     }
-
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+        /*
+        this.position = position;
 
-        Toast.makeText(context, elementsList.get(position).get("act_name"), Toast.LENGTH_SHORT).show();
+        if(Integer.parseInt(elementsList.get(position).get("acv_time"))==0) {
+            Bundle bundle = new Bundle();
+            bundle.putString("id_activity", elementsList.get(position).get("id_activity"));
+            bundle.putString("act_name",elementsList.get(position).get("act_name"));
+            bundle.putString("act_description",elementsList.get(position).get("act_description"));
+            bundle.putString("id_visit",id_visit);
 
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            FragmentDialogVisitActivities dialogo = new FragmentDialogVisitActivities();
+            dialogo.setActivitySuccessListener(this);
+            dialogo.setArguments(bundle);
+            dialogo.show(fragmentManager, FragmentDialogVisitActivities.TAG);
+        }else{
+            Toast.makeText(context,getString(R.string.finished_activity),Toast.LENGTH_SHORT).show();
+        }*/
 
     }
 
-    @Override
-    public void prepareRequest(METHOD method, Map<String, String> params) {
-        /**** Request manager stub
-         * 0. Recover data from UI
-         * 1. Add credentials information
-         * 2. Set the RequestManager listener to 'this'
-         * 3. Send the request (Via RequestManager)
-         * 4. Wait for it
-         */
-
-        // 1
-        String token      = Session.getSessionActive(getActivity()).getToken();
-        String username   = User.getUser(getActivity(), Session.getSessionActive(getActivity()).getUser_id()).getEmail();
-        params.put("request", method.toString());
-        params.put("user", username);
-        params.put("token", token);
-        params.put("id_visit",getArguments().getString("id_visit"));
-        Log.e("En PREPARERESPONDEVISIT", "-------------------------------------------   " + getArguments().getString("id_visit"));
-
-
-        //2
-        RequestManager.sharedInstance().setListener(this);
-
-        //3
-        RequestManager.sharedInstance().makeRequestWithDataAndMethod(params, method);
-    }
-
-    @Override
-    public void decodeResponse(String stringResponse) {
+    public void getActivities(String jsonObjectActivities){
 
         JSONObject resp;
 
         try {
-            resp        = new JSONObject(stringResponse);
+            resp        = new JSONObject(jsonObjectActivities);
 
-            // Prepare data for ExpandableList
             if (resp.getString("method").equalsIgnoreCase(METHOD.GET_ACTIVITIES.toString())) {
                 JSONArray act_array = resp.getJSONArray("info_activities");
                 String strArray     = act_array.toString();
 
-                elementsList   = new ArrayList<Map<String, String>>();
-
                 try {
                     JSONArray jsonArray = new JSONArray(strArray);
+                    status = new int[jsonArray.length()];
 
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject object          = jsonArray.getJSONObject(i);
                         elementsList.add(RequestManager.sharedInstance().jsonToMap(object));
+
+                        Log.d("en el array","   - - - - - -- - - "+ elementsList.get(i).get("acv_time"));
+                        if(Integer.parseInt(elementsList.get(i).get("acv_time"))>0){
+                            status[i] = 1;
+                        }else{
+                            status[i] = 0;
+                        }
+
+
                     }
 
-                    listActivities.setAdapter(new VisitActivitiesAdapter(context,elementsList));
+                    listActivities.setAdapter(new VisitActivitiesAdapter(context,elementsList,status));
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -134,4 +129,5 @@ public class FragmentVisitActivities extends Fragment implements AdapterView.OnI
         }
 
     }
+
 }

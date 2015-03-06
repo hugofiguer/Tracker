@@ -13,4 +13,9 @@
     <dimen name="dimen_text_step_visit">20sp</dimen>
     <dimen name="dimen_item_step_visit">180dp</dimen>
 
+    <!-- FragmentEvidence / Fragment Evidencia -->
+    <dimen name="size_photo">130dp</dimen>
+    <dimen name="text_camera">15sp</dimen>
+    <dimen name="dimen_photo">200dp</dimen>
+
 </resources>

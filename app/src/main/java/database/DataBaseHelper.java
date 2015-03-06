@@ -110,6 +110,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         Log.d(TAG, "after upgrade logic, at version " + oldVersion);
         if (oldVersion != DATABASE_VERSION) {
             Log.w(TAG, "Destroying old data during upgrade");
+            db.execSQL("DROP TABLE IF EXISTS " + User.TABLE);
+            db.execSQL("DROP TABLE IF EXISTS " + Permission.TABLE);
+            db.execSQL("DROP TABLE IF EXISTS " + Profile.TABLE);
+            db.execSQL("DROP TABLE IF EXISTS " + People.TABLE);
+            db.execSQL("DROP TABLE IF EXISTS " + Session.TABLE);
             db.execSQL("DROP TABLE IF EXISTS " + Note.TABLE);
             onCreate(db);
         }

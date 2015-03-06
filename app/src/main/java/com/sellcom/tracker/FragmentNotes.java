@@ -2,6 +2,7 @@ package com.sellcom.tracker;
 
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import database.models.Note;
+import database.models.Session;
 import de.timroes.android.listview.EnhancedListView;
 import util.NotesAdapter;
 
@@ -31,6 +33,8 @@ public class FragmentNotes extends Fragment implements View.OnClickListener, Ada
     TextView emptyView;
     NotesAdapter dataAdapter;
     ArrayList<String> list;
+    private Context context;
+    private boolean flag = true;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,8 @@ public class FragmentNotes extends Fragment implements View.OnClickListener, Ada
         View view = inflater.inflate(R.layout.fragment_notes, container, false);
 
         if (view != null) {
+
+            context = getActivity().getApplicationContext();
 
             newNoteButton = (LinearLayout) view.findViewById(R.id.new_note_button);
             notesList = (EnhancedListView) view.findViewById(R.id.notes_list);
@@ -74,7 +80,10 @@ public class FragmentNotes extends Fragment implements View.OnClickListener, Ada
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
 
-        editNoteDialog(i);
+        if(flag){
+            editNoteDialog(i);
+        }
+
     }
 
     public void newNoteDialog() {
@@ -115,6 +124,8 @@ public class FragmentNotes extends Fragment implements View.OnClickListener, Ada
 
     public void editNoteDialog(final int edited_item) {
 
+        flag = false;
+
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View dialogView = inflater.inflate(R.layout.dialog_new_note, null);
 
@@ -143,6 +154,7 @@ public class FragmentNotes extends Fragment implements View.OnClickListener, Ada
 
                 dataAdapter.notifyDataSetChanged();
                 alertDialog.dismiss();
+                flag = true;
             }
         });
 
@@ -150,6 +162,7 @@ public class FragmentNotes extends Fragment implements View.OnClickListener, Ada
             @Override
             public void onClick(View view) {
                 alertDialog.cancel();
+                flag = true;
             }
         });
     }
@@ -158,7 +171,7 @@ public class FragmentNotes extends Fragment implements View.OnClickListener, Ada
 
         long timestamp = new Date().getTime();
         System.out.println("Today is " + timestamp);
-        return Note.insert(getActivity(), message, 1, String.valueOf(timestamp));
+        return Note.insert(getActivity(), message, Session.getSessionActive(context).getId(), String.valueOf(timestamp));
     }
 
     public void deleteNote(int note_id) {

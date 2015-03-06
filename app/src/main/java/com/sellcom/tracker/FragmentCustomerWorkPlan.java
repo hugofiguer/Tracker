@@ -1,7 +1,6 @@
 package com.sellcom.tracker;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,8 +10,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -34,10 +35,9 @@ public class FragmentCustomerWorkPlan extends Fragment {
     private Fragment fragment;
     private FragmentManager fragmentManager;
     private Fragment fragmentMap;
-    private String add;
+    private boolean flag = false;
 
-    public Button workPlan_Iniciar,
-            getWorkPlan_Reasignar;
+    public Button workPlan_Iniciar;
 
     private TextView txt_pdv_name,
             txt_pdv_status,
@@ -99,10 +99,13 @@ public class FragmentCustomerWorkPlan extends Fragment {
                 id_visit            = jsonResponse.getString("id_visit");
                 latitude            = Float.parseFloat(jsonInfo.getString("ad_latitude"));
 
+
                 longitude           = Float.parseFloat(jsonInfo.getString("ad_longitude"));
+
 
             } catch (JSONException e) {
                 e.printStackTrace();
+                Utilities.showErrorDialog(getActivity().getString(R.string.req_man_error_contacting_service), this.getActivity());
             }
         }
         else{
@@ -110,7 +113,6 @@ public class FragmentCustomerWorkPlan extends Fragment {
         }
 
         workPlan_Iniciar      = (Button) view.findViewById(R.id.workP_buttonIniciar);
-        getWorkPlan_Reasignar = (Button) view.findViewById(R.id.workP_buttonReagendar);
 
         //updateInitButton();
 
@@ -127,16 +129,20 @@ public class FragmentCustomerWorkPlan extends Fragment {
                 supportMap.getUiSettings().setCompassEnabled(true);
                 supportMap.getUiSettings().setZoomGesturesEnabled(true);
 
-                System.out.println("Generado add para mapa: " + add);
+                //System.out.println("Generado add para mapa: " + add);
                 //Generando la ubicación mediante la dirección del cliente...
+
+                Log.v("LATITUDE"," - - -" +latitude);
+                Log.v("LONGITUDE"," - - -" +longitude);
                 supportMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude))
                         .title(txt_pdv_name.getText().toString())
                         .snippet("")
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_map)));
 
-                supportMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 11));
+                supportMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(18.564678, 18.564678), 11));
                 supportMap.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
                 supportMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
 
             }
         }
@@ -164,43 +170,18 @@ public class FragmentCustomerWorkPlan extends Fragment {
             }
         });
 
-        //Button para reasignar visita
-        getWorkPlan_Reasignar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString("id_visit",id_visit);
 
-                fragment = new FragmentRescheduleVisit();
-                fragment.setArguments(bundle);
-
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.setCustomAnimations(R.anim.slide_from_right, R.anim.shrink_out, R.anim.slide_from_left, R.anim.shrink_out);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.replace(R.id.container, fragment, FragmentRescheduleVisit.TAG);
-                fragmentTransaction.commit();
-                ((MainActivity) getActivity()).depthCounter = 3;
-
-            }
-        });
         return view;
     }
 
 
-    public void onStop(){
-        super.onStop();
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
         fragmentManager.beginTransaction().remove(fragmentMap).commit();
     }
 
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        ((MainActivity) activity).onSectionAttached(NavigationDrawerFragment.WORK_PLAN);
-    }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
 
 
 }

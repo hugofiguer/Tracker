@@ -32,6 +32,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import util.Utilities;
+
 
 public class RequestManager implements ResponseListenerInterface {
 
@@ -103,20 +105,6 @@ public class RequestManager implements ResponseListenerInterface {
     public void                         setListener(UIResponseListenerInterface listener){   this.listener = listener;}
     public UIResponseListenerInterface  getListener(){return listener;}
 
-    //Mi mensaje de error..... PARA MI DIALOG
-    public void showErrorDialog(String errorMessage, Context context){
-        Log.d(LOG_TAG_MANAGER, "Error message: " + errorMessage);
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Error");
-        builder.setMessage(errorMessage);
-        builder.setNeutralButton("OK",new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog,int id) {
-
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
 
     //INFORMACION DE MI DIALOG, DEPENDIENDO EL MODULO DE USO...
     //Aqui si agrupan todos los mensajes de loading, empatados con el metodo que los manda
@@ -139,6 +127,21 @@ public class RequestManager implements ResponseListenerInterface {
                 break;
             case SEND_RESCHEDULED_VISIT:
                 dialogMessage = activity.getString(R.string.req_man_rescheduled_visit);
+            case END_ACTIVITY:
+                dialogMessage = activity.getString(R.string.req_man_ending__activity);
+                break;
+            case GET_CAT_EV:
+                dialogMessage = activity.getString(R.string.req_man_retrieving_evidence_type);
+                break;
+            case SEND_EVIDENCE:
+                dialogMessage = activity.getString(R.string.req_man_sending_evidence);
+                break;
+            case GET_USER_INFO:
+                dialogMessage = activity.getString(R.string.req_man_downloading_user_information);
+                break;
+            case GET_FORM:
+                dialogMessage = activity.getString(R.string.req_man_downloading_form);
+                break;
             default:
                 break;
         }
@@ -171,22 +174,12 @@ public class RequestManager implements ResponseListenerInterface {
         try {
             if(jsonResponse.getString("success").equalsIgnoreCase("true")){
                 // Decode the json object
-                Log.d(LOG_TAG_MANAGER, jsonResponse.toString());
                 Log.e("ABCDEFG","EN RESPONSESERVICETOMANAGER");
                 listener.decodeResponse(jsonResponse.toString());
-            }/*
-            else{
-                if (jsonResponse.getString("method").equalsIgnoreCase(METHOD.GET_PRODUCTS.toString())){
-                    Log.d(LOG_TAG_MANAGER, jsonResponse.toString());
-                    listener.decodeResponse(jsonResponse.toString());
-                }
-                else{
-                    showErrorDialog(jsonResponse.getString("resp"), this.activity);
-                }
-            }*/
+            }
         } catch (JSONException e) {
             e.printStackTrace();
-            showErrorDialog(activity.getString(R.string.req_man_error_contacting_service), this.activity);
+            Utilities.showErrorDialog(activity.getString(R.string.req_man_error_contacting_service), this.activity);
         }
     }
 
@@ -294,7 +287,7 @@ public class RequestManager implements ResponseListenerInterface {
                             }
                             JSONObject pdv = new JSONObject();
                             pdv.put("id_activity", "8");
-                            pdv.put("act_activity", "Servidores");
+                            pdv.put("act_name", "Servidores");
                             pdv.put("act_description", "Ajustar tiempos en servidores colocados hace 3 meses");
 
                             pdvs.put(pdv);
@@ -355,7 +348,6 @@ public class RequestManager implements ResponseListenerInterface {
                     try {
                         jsonResponse            = new JSONObject(strResponse);
                         jsonResponse.put("method",method.toString());
-                        Log.d(LOG_TAG_REQUEST, "jsonResponse: " + jsonResponse.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -380,7 +372,6 @@ public class RequestManager implements ResponseListenerInterface {
         }
 
         protected void onPostExecute(JSONObject jsonResponse) {
-            Log.d(LOG_TAG_REQUEST, "jsonResponse_post: " + jsonResponse.toString());
             Log.e("ABCDEFG","EN ONPOSTEXECUTE");
             listener.responseServiceToManager(jsonResponse);
         }
