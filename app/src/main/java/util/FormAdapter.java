@@ -15,7 +15,6 @@ import android.widget.Spinner;
 import com.sellcom.tracker.R;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,6 +28,7 @@ public class FormAdapter extends ArrayAdapter<ListViewItem>{
 
     private ListViewItem[]  objects;
     private int element     = 3;
+    private String text;
 
     public static final int TYPE_BINARY = 0;
     public static final int TYPE_TEXT   = 1;
@@ -63,7 +63,6 @@ public class FormAdapter extends ArrayAdapter<ListViewItem>{
         ViewHolderForRadio viewHolderForRadio = null;
         int listViewItemType = getItemViewType(position);
 
-
         if (convertView == null) {
 
             if (listViewItemType == TYPE_BINARY) {
@@ -84,6 +83,7 @@ public class FormAdapter extends ArrayAdapter<ListViewItem>{
                 EditText edt_answer_text = (EditText) convertView.findViewById(R.id.edt_answer_text);
 
                 viewHolderForText = new ViewHolderForText(txt_questionnarie_text,edt_answer_text);
+
                 convertView.setTag(viewHolderForText);
             } else if (listViewItemType == TYPE_RADIO) {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_form_question_radio, null);
@@ -100,29 +100,53 @@ public class FormAdapter extends ArrayAdapter<ListViewItem>{
             if (listViewItemType == TYPE_BINARY) {
                 viewHolderForBinary = (ViewHolderForBinary) convertView.getTag();
             } else if (listViewItemType == TYPE_TEXT) {
+                viewHolderForText.getEdt_answer_text().setText(data.get(position+""));
                 viewHolderForText = (ViewHolderForText) convertView.getTag();
             } else if (listViewItemType == TYPE_RADIO) {
                 viewHolderForRadio = (ViewHolderForRadio) convertView.getTag();
             }
         }
-
-
+        //-------------------------------------------------------------------------------------------------------------------------
         if (listViewItemType == TYPE_BINARY) {
-            viewHolderForBinary.getRgp_binary().setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                    if(viewHolderForBinary.getRbtn_binary1().isChecked()){
-
-                    }
-
-                }
-            });
-            data.put(position+"","");
-        } else if (listViewItemType == TYPE_TEXT) {
-            data.put(position+"","");
-        } else if (listViewItemType == TYPE_RADIO) {
-            data.put(position+"","");
+            if (data.get(position + "").equals("1")) {
+                viewHolderForBinary.getRbtn_binary1().setChecked(true);
+            } else if (data.get(position + "").equals("0")) {
+                viewHolderForBinary.getRbtn_binary2().setChecked(true);
+            } else {
+                viewHolderForBinary.getRbtn_binary1().setChecked(false);
+                viewHolderForBinary.getRbtn_binary2().setChecked(false);
+            }
+        }else if (listViewItemType == TYPE_TEXT) {
+            viewHolderForText.getEdt_answer_text().setText(data.get(position + ""));
         }
+        //--------------------------------------------------------------------------------------------------------------------------
+        if(data.get(position).equals("")){
+            if (listViewItemType == TYPE_BINARY) {
+                data.put(position+"","1");
+                viewHolderForBinary.getRbtn_binary1().setChecked(true);
+            } else if (listViewItemType == TYPE_TEXT) {
+                data.put(position+"","");
+                viewHolderForText.getEdt_answer_text().setText(data.get(position + ""));
+
+            } else if (listViewItemType == TYPE_RADIO) {
+                data.put(position+"","");
+            }
+        }else{
+            if (listViewItemType == TYPE_BINARY) {
+                if(viewHolderForBinary.getRbtn_binary1().isChecked()){
+                    data.put(position+"","1");
+                }else if(viewHolderForBinary.getRbtn_binary2().isChecked()){
+                    data.put(position+"","0");
+                }
+
+            } else if (listViewItemType == TYPE_TEXT) {
+                text = viewHolderForText.getEdt_answer_text().getText().toString();
+                data.put(position+"",text);
+            } else if (listViewItemType == TYPE_RADIO) {
+                data.put(position+"","");
+            }
+        }
+
 
 
         return convertView;
