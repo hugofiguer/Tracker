@@ -100,34 +100,18 @@ public class FormAdapter extends ArrayAdapter<ListViewItem>{
             if (listViewItemType == TYPE_BINARY) {
                 viewHolderForBinary = (ViewHolderForBinary) convertView.getTag();
             } else if (listViewItemType == TYPE_TEXT) {
-                viewHolderForText.getEdt_answer_text().setText(data.get(position+""));
                 viewHolderForText = (ViewHolderForText) convertView.getTag();
             } else if (listViewItemType == TYPE_RADIO) {
                 viewHolderForRadio = (ViewHolderForRadio) convertView.getTag();
             }
         }
-        //-------------------------------------------------------------------------------------------------------------------------
-        if (listViewItemType == TYPE_BINARY) {
-            if (data.get(position + "").equals("1")) {
-                viewHolderForBinary.getRbtn_binary1().setChecked(true);
-            } else if (data.get(position + "").equals("0")) {
-                viewHolderForBinary.getRbtn_binary2().setChecked(true);
-            } else {
-                viewHolderForBinary.getRbtn_binary1().setChecked(false);
-                viewHolderForBinary.getRbtn_binary2().setChecked(false);
-            }
-        }else if (listViewItemType == TYPE_TEXT) {
-            viewHolderForText.getEdt_answer_text().setText(data.get(position + ""));
-        }
+
         //--------------------------------------------------------------------------------------------------------------------------
-        if(data.get(position).equals("")){
+        if(data.get(position+"").isEmpty()){
             if (listViewItemType == TYPE_BINARY) {
                 data.put(position+"","1");
-                viewHolderForBinary.getRbtn_binary1().setChecked(true);
             } else if (listViewItemType == TYPE_TEXT) {
                 data.put(position+"","");
-                viewHolderForText.getEdt_answer_text().setText(data.get(position + ""));
-
             } else if (listViewItemType == TYPE_RADIO) {
                 data.put(position+"","");
             }
@@ -146,8 +130,19 @@ public class FormAdapter extends ArrayAdapter<ListViewItem>{
                 data.put(position+"","");
             }
         }
-
-
+        //-------------------------------------------------------------------------------------------------------------------------
+        if (listViewItemType == TYPE_BINARY) {
+            if (data.get(position + "").equals("1")) {
+                viewHolderForBinary.getRbtn_binary1().setChecked(true);
+            } else if (data.get(position + "").equals("0")) {
+                viewHolderForBinary.getRbtn_binary2().setChecked(true);
+            } else {
+                viewHolderForBinary.getRbtn_binary1().setChecked(false);
+                viewHolderForBinary.getRbtn_binary2().setChecked(false);
+            }
+        }else if (listViewItemType == TYPE_TEXT) {
+            viewHolderForText.getEdt_answer_text().setText(data.get(position + ""));
+        }
 
         return convertView;
     }
