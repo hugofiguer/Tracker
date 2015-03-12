@@ -147,7 +147,7 @@
 
     <!-- Rescheduled Visit -->
     <string name="title_dialog_message">Check it</string>
-    <string name="message_reschedule_visit">The date should not be before the current day</string>
+    <string name="message_reschedule_visit">The date should not be earlier than today</string>
     <string name="rescheduled_visit">Rescheduled visit</string>
 
     <!-- Steps Visit / Pasos de la Visita -->
@@ -167,5 +167,9 @@
     <string name="text_camera">Take picture</string>
     <string name="retry">Retry</string>
     <string name="please_take_picture">Please take a picture to continue</string>
+
+    <!-- menu - send -->
+    <string name="send">Send</string>
+
 
 </resources>

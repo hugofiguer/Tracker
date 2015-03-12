@@ -25,20 +25,19 @@ public class FragmentHome extends Fragment {
     public static final int TIME          = 0;
     public static final int WEATHER       = 1;
     public static final int NOTES         = 2;
-    public static final int NOTIFICATIONS = 3;
-    public static final int TRAFFIC       = 4;
-    public static final int TRAFFIC_MAP   = 5;
+    public static final int TRAFFIC       = 3;
+    public static final int TRAFFIC_MAP   = 4;
 
-    public int HOME_ITEMS = 5;
+    public int HOME_ITEMS = 4;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (Utilities.isHandset(getActivity())) {
-            HOME_ITEMS = 5;
+            HOME_ITEMS = 4;
         }
         else {
-            HOME_ITEMS = 6;
+            HOME_ITEMS = 5;
         }
     }
 
@@ -78,11 +77,6 @@ public class FragmentHome extends Fragment {
                 container = R.id.fragment_notes_container;
                 fragment = new FragmentNotes();
                 TAG = "notes";
-                break;
-            case NOTIFICATIONS:
-                container = R.id.fragment_notifications_container;
-                fragment = new FragmentNotifications();
-                TAG = "notifications";
                 break;
             case TRAFFIC:
                 container = R.id.fragment_traffic_container;

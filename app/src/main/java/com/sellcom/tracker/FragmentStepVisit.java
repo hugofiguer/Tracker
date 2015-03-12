@@ -229,6 +229,7 @@ public class FragmentStepVisit extends Fragment implements AdapterView.OnItemCli
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject object          = jsonArray.getJSONObject(i);
                         elementsList.add(RequestManager.sharedInstance().jsonToMap(object));
+                        Log.e("acv_time",""+Integer.parseInt(elementsList.get(i).get("acv_time")));
                         if(Integer.parseInt(elementsList.get(i).get("acv_time"))==0){
                             flag = true;
                         }

@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="50"
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         android:padding="10dp"
         android:orientation="vertical"
         android:background="#FAFAFA"
@@ -49,9 +49,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="50"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="15dp"
         android:gravity="center"
         android:orientation="vertical"
         android:weightSum="100">
@@ -67,7 +67,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="30"
+                android:layout_weight="35"
                 android:gravity="right"
                 android:layout_marginRight="10dp"
                 android:textSize="@dimen/sizeMediumText"
@@ -76,7 +76,7 @@
             <Spinner
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="70"
+                android:layout_weight="65"
                 android:gravity="center"
                 android:layout_marginBottom="5dp"
                 android:id="@+id/spinnerEvidenceType" />
@@ -94,7 +94,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="30"
+                android:layout_weight="35"
                 android:gravity="right"
                 android:layout_marginRight="10dp"
                 android:textSize="@dimen/sizeMediumText"
@@ -103,7 +103,7 @@
             <Spinner
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="70"
+                android:layout_weight="65"
                 android:gravity="center"
                 android:layout_marginBottom="5dp"
                 android:id="@+id/spinnerActivity" />

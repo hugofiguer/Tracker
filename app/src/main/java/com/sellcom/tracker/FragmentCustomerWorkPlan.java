@@ -26,6 +26,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import location.GPSTracker;
 import util.Utilities;
 
 
@@ -97,10 +98,13 @@ public class FragmentCustomerWorkPlan extends Fragment {
 
 
                 id_visit            = jsonResponse.getString("id_visit");
-                latitude            = Float.parseFloat(jsonInfo.getString("ad_latitude"));
-
-
-                longitude           = Float.parseFloat(jsonInfo.getString("ad_longitude"));
+                if(jsonInfo.getString("ad_latitude").equals("null") || jsonInfo.getString("ad_longitude").equals("null")){
+                    latitude = 0;
+                    longitude = 0;
+                }else{
+                    latitude            = Float.parseFloat(jsonInfo.getString("ad_latitude"));
+                    longitude           = Float.parseFloat(jsonInfo.getString("ad_longitude"));
+                }
 
 
             } catch (JSONException e) {
@@ -115,6 +119,10 @@ public class FragmentCustomerWorkPlan extends Fragment {
         workPlan_Iniciar      = (Button) view.findViewById(R.id.workP_buttonIniciar);
 
         //updateInitButton();
+
+        GPSTracker tracker = new GPSTracker(getActivity());
+        final double user_latitude      = tracker.getLatitude();
+        final double user_longitude     = tracker.getLongitude();
 
         fragmentManager = getActivity().getSupportFragmentManager();
         fragmentMap = fragmentManager.findFragmentById(R.id.fragment_map_container);
@@ -139,7 +147,7 @@ public class FragmentCustomerWorkPlan extends Fragment {
                         .snippet("")
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_map)));
 
-                supportMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(18.564678, 18.564678), 11));
+                supportMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(user_latitude, user_longitude), 11));
                 supportMap.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
                 supportMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 

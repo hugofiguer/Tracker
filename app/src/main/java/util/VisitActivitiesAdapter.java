@@ -63,6 +63,7 @@ public class VisitActivitiesAdapter extends BaseAdapter{
         TextView txt_activities_preview_num = (TextView)item.findViewById(R.id.txt_activities_preview_num);
         txt_activities_preview_num.setText(""+((position++) + 1));
 
+        txt_activities_preview_num.setBackgroundResource(R.color.gray);
         ImageView imgCheck = (ImageView)item.findViewById(R.id.imgCheck);
         imgCheck.setImageResource(R.drawable.ic_no_check);
 

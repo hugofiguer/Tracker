@@ -142,7 +142,7 @@
 
     <!-- Rescheduled Visit -->
     <string name="title_dialog_message">Verifique la fecha</string>
-    <string name="message_reschedule_visit">La fecha no debe ser anterior al día actual</string>
+    <string name="message_reschedule_visit">La fecha no debe ser anterior al día de hoy</string>
     <string name="rescheduled_visit">Visita reagendada</string>
 
 
@@ -163,4 +163,9 @@
     <string name="text_camera">Tomar foto</string>
     <string name="retry">Reintentar</string>
     <string name="please_take_picture">Por favor tome una fotografia para continuar</string>
+
+    <!-- menu - send -->
+    <string name="send">Enviar</string>
+
+
 </resources>

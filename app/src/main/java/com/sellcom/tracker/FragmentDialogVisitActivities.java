@@ -42,7 +42,7 @@ public class FragmentDialogVisitActivities extends DialogFragment implements Vie
     private String id_activity, act_name, id_visit, id_evidence_type,foto, totalSeconds;
     private int time_start,minute_start,time_end,minute_end,timeReal,minuteReal;
     activitySuccess activitySuccess;
-    private boolean flag = true;
+    private boolean flag = false;
 
     public FragmentDialogVisitActivities() {
         // Required empty public constructor
@@ -124,6 +124,14 @@ public class FragmentDialogVisitActivities extends DialogFragment implements Vie
         btnCancelVisit = (Button)view.findViewById(R.id.btnCancelVisit);
         btnCancelVisit.setOnClickListener(this);
 
+        if(time_start > 12){
+            time_start = time_start - 12;
+        }
+
+        if(time_end > 12){
+            time_end = time_end - 12;
+        }
+
         return view;
     }
 
@@ -132,6 +140,10 @@ public class FragmentDialogVisitActivities extends DialogFragment implements Vie
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btnEndVisit:
+
+                Log.e("HORA INICIAL",""+time_start);
+                Log.e("HORA FINAL",""+time_end);
+
                     if(time_start == time_end && minute_start == minute_end){
                         flag = false;
                         Toast.makeText(context,getString(R.string.message_dialog_time),Toast.LENGTH_SHORT).show();

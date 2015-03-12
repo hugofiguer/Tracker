@@ -38,8 +38,8 @@ import util.Utilities;
 public class RequestManager implements ResponseListenerInterface {
 
     //Etapa de pruebas... TEST_MODE
-    //public  final   boolean                                 TEST_MODE          = true;
-    public  final   boolean                                 TEST_MODE          = false;
+    public  final   boolean                                 TEST_MODE          = true;
+    //public  final   boolean                                 TEST_MODE          = false;
 
     public  final String LOG_TAG_MANAGER    = "requestManager";
     public  final String LOG_TAG_REQUEST    = "asyncRequest";
@@ -203,7 +203,7 @@ public class RequestManager implements ResponseListenerInterface {
             JSONObject jsonResponse = null;
             if (TEST_MODE){
                 try {
-                    Thread.sleep(3000);
+                    Thread.sleep(1000);
                     jsonResponse = new JSONObject();
                     try {
                         jsonResponse.put("method",method.toString());
@@ -277,20 +277,22 @@ public class RequestManager implements ResponseListenerInterface {
                             jsonResponse.put("id_visit","1");
 
                             JSONArray pdvs = new JSONArray();
-                            for (int i=1; i<=20; i++) {
+                            for (int i=1; i<=15; i++) {
                                 JSONObject pdv = new JSONObject();
                                 pdv.put("id_activity", ""+i);
                                 pdv.put("act_name", "Servidores");
+                                pdv.put("acv_time",""+i);
                                 pdv.put("act_description", "Colocar servidores en puntos de contol");
 
                                 pdvs.put(pdv);
-                            }
+                            }/*
                             JSONObject pdv = new JSONObject();
                             pdv.put("id_activity", "8");
+                            pdv.put("acv_time","0");
                             pdv.put("act_name", "Servidores");
                             pdv.put("act_description", "Ajustar tiempos en servidores colocados hace 3 meses");
-
-                            pdvs.put(pdv);
+*/
+                            //pdvs.put(pdv);
 
                             jsonResponse.put("info_activities",pdvs);
 
@@ -303,6 +305,23 @@ public class RequestManager implements ResponseListenerInterface {
                             jsonResponse.put("resp","OK");
                             jsonResponse.put("new_reschedule_date","1423502820");
 
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }else if (method == METHOD.GET_USER_INFO){
+                        try {
+                            jsonResponse.put("success",true);
+                            jsonResponse.put("resp","OK");
+
+                            JSONArray pdvs = new JSONArray();
+                                JSONObject pdv = new JSONObject();
+                                pdv.put("usr_email", "markitos@gmail.com");
+                                pdv.put("usr_name", "Marcos Motes de Oca");
+
+                                pdvs.put(pdv);
+
+                            jsonResponse.put("user_info",pdvs);
 
                         } catch (JSONException e) {
                             e.printStackTrace();

@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/background_items">
+    android:background="@color/gray">
 
     <TextView
         android:layout_width="match_parent"
@@ -38,9 +38,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="30"
             android:text="Si"
-            android:checked="true"
             android:id="@+id/rbtn_binary1"
             android:textColor="@color/white"
+            android:checked="true"
             android:textSize="@dimen/sizeMediumText"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="5dp"/>

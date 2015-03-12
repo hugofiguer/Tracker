@@ -48,11 +48,6 @@
                 android:layout_weight="1"
                 android:layout_marginRight="8dp"/>
 
-            <FrameLayout
-                android:id="@+id/fragment_notifications_container"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
 
         </LinearLayout>
 
