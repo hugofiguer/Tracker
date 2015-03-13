@@ -49,6 +49,6 @@
         android:choiceMode="singleChoice"
         android:background="#FAFAFA"
         android:divider="@null"
-        tools:context="com.sellcom.tracker.NavigationDrawerFragment"/>
+        tools:context="com.sellcom.tracker_interno.NavigationDrawerFragment"/>
 
 </LinearLayout>

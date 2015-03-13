@@ -1,34 +1,26 @@
-package com.sellcom.tracker;
+package com.sellcom.tracker_interno;
 
 
 import android.content.Context;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.widget.AdapterView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import async_request.METHOD;
 import async_request.RequestManager;
-import async_request.UIResponseListenerInterface;
-import database.models.Session;
-import database.models.User;
 import util.VisitActivitiesAdapter;
 
 

@@ -1,4 +1,4 @@
-package com.sellcom.tracker;
+package com.sellcom.tracker_interno;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

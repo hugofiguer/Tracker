@@ -171,5 +171,8 @@
     <!-- menu - send -->
     <string name="send">Send</string>
 
+    <!-- fragment_forms -->
+    <string name="mandatory">Mandatory</string>
+    <string name="optional">Optional</string>
 
 </resources>

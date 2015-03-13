@@ -1,9 +1,10 @@
-package com.sellcom.tracker;
+package com.sellcom.tracker_interno;
 
 
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.location.Location;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.telephony.TelephonyManager;
@@ -19,7 +20,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,6 +30,7 @@ import database.models.Permission;
 import database.models.Profile;
 import database.models.Session;
 import database.models.User;
+import location.GPSTracker;
 import util.Utilities;
 
 
@@ -100,10 +101,16 @@ public class FragmentLogin extends Fragment implements View.OnClickListener, UIR
                  */
 
                 // 0
+
+                Location myLocation = new GPSTracker(getActivity()).getCurrentLocation();
+
+
                 final Map<String, String> params = new HashMap<String, String>();
                 params.put("request", METHOD.LOGIN.toString());
                 params.put("user", textEmail);
                 params.put("password", textPassword);
+                params.put("hil_x",""+myLocation.getLatitude());
+                params.put("hil_y",""+myLocation.getLongitude());
 
                 //2
                 RequestManager.sharedInstance().setListener(this);

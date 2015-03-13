@@ -2,7 +2,7 @@ package util;
 
 import android.util.Log;
 
-import com.sellcom.tracker.BuildConfig;
+import com.sellcom.tracker_interno.BuildConfig;
 
 
 public class LogUtil {

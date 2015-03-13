@@ -1,16 +1,14 @@
 package async_request;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.Window;
 
-import com.sellcom.tracker.R;
+import com.sellcom.tracker_interno.R;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -38,8 +36,8 @@ import util.Utilities;
 public class RequestManager implements ResponseListenerInterface {
 
     //Etapa de pruebas... TEST_MODE
-    public  final   boolean                                 TEST_MODE          = true;
-    //public  final   boolean                                 TEST_MODE          = false;
+    //public  final   boolean                                 TEST_MODE          = true;
+    public  final   boolean                                 TEST_MODE          = false;
 
     public  final String LOG_TAG_MANAGER    = "requestManager";
     public  final String LOG_TAG_REQUEST    = "asyncRequest";

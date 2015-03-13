@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.sellcom.tracker.R;
+import com.sellcom.tracker_interno.R;
 
 /**
  * Created by hugo.figueroa on 14/01/15.

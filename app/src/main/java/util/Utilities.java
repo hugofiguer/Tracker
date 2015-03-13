@@ -12,7 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import com.sellcom.tracker.R;
+import com.sellcom.tracker_interno.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

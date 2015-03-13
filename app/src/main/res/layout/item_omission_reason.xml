@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@color/app_color">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txt_act_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="4"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/light_green"
+            android:text="Nombre de la aplicacion"
+            android:padding="5dp"
+            android:textSize="@dimen/sizeMediumText"/>
+
+        <TextView
+            android:id="@+id/txt_omission_reason"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="4"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/light_gray"
+            android:text="Motivo de Omision"
+            android:layout_marginBottom="5dp"
+            android:padding="5dp"
+            android:textSize="@dimen/sizeMediumText"/>
+
+        <EditText
+            android:id="@+id/edt_omission_reason"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxHeight="120dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="@color/light_gray"
+            android:textSize="@dimen/sizeMediumText"/>
+
+
+    </LinearLayout>
+
+</FrameLayout>

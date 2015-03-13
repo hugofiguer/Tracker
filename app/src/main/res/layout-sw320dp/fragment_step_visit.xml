@@ -44,7 +44,7 @@
             android:textColor="@color/light_gray"
             android:background="@drawable/border_button_red"
             android:textSize="@dimen/sizeMediumText"
-            android:id="@+id/button2" />
+            android:id="@+id/btn_finish_visit" />
 
 
     </LinearLayout>

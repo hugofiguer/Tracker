@@ -1,4 +1,4 @@
-package com.sellcom.tracker;
+package com.sellcom.tracker_interno;
 
 
 import android.content.Context;
@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.TimePicker;
 import android.widget.TimePicker.OnTimeChangedListener;
 import android.widget.Toast;

@@ -1,7 +1,6 @@
-package com.sellcom.tracker;
+package com.sellcom.tracker_interno;
 
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;

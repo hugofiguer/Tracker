@@ -17,6 +17,7 @@ public enum METHOD {
     GET_CAT_EV("get_cat_ev"),
     SEND_EVIDENCE("send_evidence"),
     GET_FORM("get_form"),
+    SET_FORM("set_form"),
     LOGOUT ("logout")
     ;
 

@@ -1,25 +1,22 @@
-package com.sellcom.tracker;
+package com.sellcom.tracker_interno;
 
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
-import android.widget.Toast;
 import android.widget.TextView;
 import android.widget.RadioGroup;
-import android.widget.RadioButton;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.DatePicker;
+import android.widget.TimePicker;
 import android.widget.LinearLayout;
 import android.widget.ArrayAdapter;
 
@@ -27,7 +24,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,9 +34,9 @@ import database.models.Session;
 import database.models.User;
 import util.ListViewItem;
 
-public class FragmentForms extends Fragment implements UIResponseListenerInterface{
+public class FragmentQuestionsForm extends Fragment implements UIResponseListenerInterface{
 
-    final static public String  TAG = "TAG_FRAGMENT_FORM";
+    final static public String  TAG = "TAG_FRAGMENT_QUESTION_FORM";
     private LayoutInflater      layoutInflater;
     private View[]                view;
     private RadioGroup[]          rg;
@@ -48,20 +44,25 @@ public class FragmentForms extends Fragment implements UIResponseListenerInterfa
     private EditText[]            editText;
     private Spinner[]             spinner;
     private CheckBox[]            checkBox;
+    private DatePicker[]          datePicker;
+    private TimePicker[]          timePicker;
     private TextView              txt_form_name;
 
-    private LinearLayout        linearContainer;
+    private LinearLayout linearContainer;
     private LinearLayout[]        containerChecks;
     //private FormAdapter         formAdapter;
     //private GridView            gridView;
     private String              id_visit,nameForm=".-?",answerOption;
-    private Context             context;
+    private Context context;
     private int                 sizeForm;
     private String[]            arrayMultipleOptions,arrayChecks;
 
+    //Datos del Formulario elegido
+    private String              id_data_form,dtf_name,dtf_obligatory,questions;
+
     private ListViewItem[] listViewItems;
 
-    private Map<String,String>  dataForm;
+    private Map<String,String> dataForm;
 
     public static final String TYPE_BINARY = "Binary";
     public static final String TYPE_TEXT   = "Text";
@@ -77,7 +78,7 @@ public class FragmentForms extends Fragment implements UIResponseListenerInterfa
 
     private  ListViewItem[] items = null;
 
-    public FragmentForms() {
+    public FragmentQuestionsForm() {
         // Required empty public constructor
     }
 
@@ -92,21 +93,36 @@ public class FragmentForms extends Fragment implements UIResponseListenerInterfa
         super.onCreate(savedInstanceState);
         context = getActivity().getApplicationContext();
         layoutInflater = (LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View vista = inflater.inflate(R.layout.fragment_forms, container, false);
+        View vista = inflater.inflate(R.layout.fragment_questions_forms, container, false);
 
-        id_visit = getArguments().getString("id_visit");
         linearContainer = (LinearLayout)vista.findViewById(R.id.linearContainer);
         txt_form_name   = (TextView)vista.findViewById(R.id.txt_form_name);
 
+        id_visit = getArguments().getString("id_visit");
+        id_data_form = getArguments().getString("id_data_form");
+        dtf_name = getArguments().getString("dtf_name");
+        questions = getArguments().getString("questions");
+
         dataForm = new HashMap<String, String>();
 
-        prepareRequest(METHOD.GET_FORM,new HashMap<String, String>());
+        txt_form_name.setText("" + dtf_name);
+
+
+        JSONArray array     = null;
+        try {
+            array = new JSONArray(questions);
+            OnInit(array);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
 
         return vista;
     }
@@ -122,48 +138,33 @@ public class FragmentForms extends Fragment implements UIResponseListenerInterfa
             for (int i = 0; i < jsonArray1.length(); i++) {
                 JSONObject object = jsonArray1.getJSONObject(i);
 
-                if(nameForm.equals(".-?")){
-                    nameForm = object.getString("ft_name");
-                }
-
                 if(object.getString("dt_data_type").equals(TYPE_TEXT)){
-                    Log.e(TAG,"1");
-
-
                     items[i] = new ListViewItem(TYPE_TEXT,object.getString("que_question"),object.getString("id_question"),object.getString("aop_option"));
                 }else if(object.getString("dt_data_type").equals(TYPE_NUMBER)){
-                    Log.e(TAG,"2");
                     items[i] = new ListViewItem(TYPE_NUMBER,object.getString("que_question"),object.getString("id_question"),object.getString("aop_option"));
                 }else if(object.getString("dt_data_type").equals(TYPE_EMAIL)){
-                    Log.e(TAG,"3");
                     items[i] = new ListViewItem(TYPE_EMAIL,object.getString("que_question"),object.getString("id_question"),object.getString("aop_option"));
                 }else if(object.getString("dt_data_type").equals(TYPE_FLOAT)){
-                    Log.e(TAG,"4");
                     items[i] = new ListViewItem(TYPE_FLOAT,object.getString("que_question"),object.getString("id_question"),object.getString("aop_option"));
                 }else if(object.getString("dt_data_type").equals(TYPE_BINARY)){
-                    Log.e(TAG,"5");
                     items[i] = new ListViewItem(TYPE_BINARY,object.getString("que_question"),object.getString("id_question"),object.getString("aop_option"));
                 }else if(object.getString("dt_data_type").equals(TYPE_RADIO)){
-                    Log.e(TAG,"6");
                     items[i] = new ListViewItem(TYPE_RADIO,object.getString("que_question"),object.getString("id_question"),object.getString("aop_option"));
                 }else if(object.getString("dt_data_type").equals(TYPE_CHECK)){
-                    Log.e(TAG,"7");
                     items[i] = new ListViewItem(TYPE_CHECK,object.getString("que_question"),object.getString("id_question"),object.getString("aop_option"));
                 }else if(object.getString("dt_data_type").equals(TYPE_SELECT)){
-                    Log.e(TAG,"8");
                     items[i] = new ListViewItem(TYPE_SELECT,object.getString("que_question"),object.getString("id_question"),object.getString("aop_option"));
                 }else if(object.getString("dt_data_type").equals(TYPE_DATE)){
-                    Log.e(TAG,"9");
                     items[i] = new ListViewItem(TYPE_DATE,object.getString("que_question"),object.getString("id_question"),object.getString("aop_option"));
                 }
 
             }
 
-            txt_form_name.setText("" + nameForm);
-
 
             view            = new View[sizeForm];
             rg              = new RadioGroup[sizeForm];
+            datePicker      = new DatePicker[sizeForm];
+            timePicker      = new TimePicker[sizeForm];
             textView        = new TextView[sizeForm];
             editText        = new EditText[sizeForm];
             spinner         = new Spinner[sizeForm];
@@ -179,6 +180,7 @@ public class FragmentForms extends Fragment implements UIResponseListenerInterfa
                     textView[i].setText(items[i].getQuestion());
 
                     rg[i]       = (RadioGroup) view[i].findViewById(R.id.rgp_binary);
+
                 }else if(items[i].getType().equals(TYPE_TEXT)){
                     view[i]     = layoutInflater.inflate(R.layout.item_form_question_text,null);
                     linearContainer.addView(view[i]);
@@ -235,6 +237,10 @@ public class FragmentForms extends Fragment implements UIResponseListenerInterfa
                     textView[i] = (TextView) view[i].findViewById(R.id.txt_question_date);
                     textView[i].setText(items[i].getQuestion());
 
+                    datePicker[i] = (DatePicker)view[i].findViewById(R.id.datePicker);
+                    timePicker[i] = (TimePicker)view[i].findViewById(R.id.timePicker);
+
+
                 }else if (items[i].getType().equals(TYPE_CHECK)){
                     String options = items[i].getAop_option();
                     arrayChecks = options.split(",");
@@ -274,73 +280,103 @@ public class FragmentForms extends Fragment implements UIResponseListenerInterfa
 
     }
 
+
     public void sendDataForm(){
 
-        JSONObject jsonObject = new JSONObject();
+        JSONObject jsonObject = null;
         JSONArray array = new JSONArray();
 
         try{
 
             for (int i = 0; i < listViewItems.length; i++) {
+
+
+                jsonObject = new JSONObject();
                 if (listViewItems[i].getType().equals(TYPE_BINARY)){
 
-                    rg[i].setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                        @Override
-                        public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
-                            if(checkedId == R.id.rbtn_binary1){
-                               answerOption = "si";
-                            }else if(checkedId == R.id.rbtn_binary2){
-                                answerOption = "no";
-                            }
-                        }
-                    });
+                    int selectedId = rg[i].getCheckedRadioButtonId();
+
+                    if(selectedId == R.id.rbtn_binary1){
+                        answerOption = "si";
+                    }else if(selectedId == R.id.rbtn_binary2){
+                        answerOption = "no";
+                    }
 
                     jsonObject.put("id_question",items[i].getId_question());
-                    jsonObject.put("aop_option",answerOption);
+                    jsonObject.put("answer",answerOption);
+
                     array.put(jsonObject);
 
                 }else if(listViewItems[i].getType().equals(TYPE_TEXT)){
-                    Log.e("Contenido del textview: ",editText[i].getText().toString());
+                    answerOption = editText[i].getText().toString();
+                    jsonObject.put("id_question",items[i].getId_question());
+                    jsonObject.put("answer",answerOption);
+
+                    array.put(jsonObject);
                 }else if(listViewItems[i].getType().equals(TYPE_RADIO) || listViewItems[i].getType().equals(TYPE_SELECT)){
 
                     answerOption =  spinner[i].getSelectedItem().toString();
 
                     jsonObject.put("id_question",items[i].getId_question());
-                    jsonObject.put("aop_option",answerOption);
+                    jsonObject.put("answer",answerOption);
+
                     array.put(jsonObject);
 
                 }else if(listViewItems[i].getType().equals(TYPE_NUMBER)){
 
+                    answerOption = editText[i].getText().toString();
                     jsonObject.put("id_question",items[i].getId_question());
-                    jsonObject.put("aop_option",editText[i].getText().toString());
+                    jsonObject.put("answer",editText[i].getText().toString());
+
                     array.put(jsonObject);
 
                 }else if(listViewItems[i].getType().equals(TYPE_CHECK)){
+                    String answer = "";
+                    int cont= 0;
+                    for(int j = 0; j < checkBox.length; j++){
+                        if(checkBox[j].isChecked()){
+                            answer = answer + checkBox[j].getText().toString();
+
+                            if(cont>=0 && j != checkBox.length-1){
+                                answer = answer + ";";
+                            }
+                            cont++;
+                        }
+                    }
 
                     jsonObject.put("id_question",items[i].getId_question());
-                    jsonObject.put("aop_option","10,20,30");
+                    jsonObject.put("answer",answer);
+
                     array.put(jsonObject);
 
 
                 }else if(listViewItems[i].getType().equals(TYPE_DATE)){
 
+                    String answer = getNewDate(datePicker[i].getDayOfMonth(),(datePicker[i].getMonth() + 1),datePicker[i].getYear())+" "+getNewTime(timePicker[i].getCurrentHour(), timePicker[i].getCurrentMinute());
+
                     jsonObject.put("id_question",items[i].getId_question());
-                    jsonObject.put("aop_option","12-01-2015 10:35");
+                    jsonObject.put("answer",answer);
+
                     array.put(jsonObject);
 
                 }else if(listViewItems[i].getType().equals(TYPE_FLOAT)){
 
+                    answerOption = editText[i].getText().toString();
                     jsonObject.put("id_question",items[i].getId_question());
-                    jsonObject.put("aop_option",editText[i].getText().toString());
+                    jsonObject.put("answer",editText[i].getText().toString());
+
                     array.put(jsonObject);
 
                 }else if(listViewItems[i].getType().equals(TYPE_EMAIL)){
 
+                    answerOption = editText[i].getText().toString();
                     jsonObject.put("id_question",items[i].getId_question());
-                    jsonObject.put("aop_option",editText[i].getText().toString());
+                    jsonObject.put("answer",editText[i].getText().toString());
+
                     array.put(jsonObject);
 
                 }
+
             }
 
         }catch (JSONException e){
@@ -348,23 +384,70 @@ public class FragmentForms extends Fragment implements UIResponseListenerInterfa
         }
 
 
-        JSONObject object = new JSONObject();
+        JSONObject objectQuestions  = new JSONObject();
+        JSONArray arrayForms        = new JSONArray();
         try {
-            object.put("answer_form",array);
+            objectQuestions.put("questions",array);
+            objectQuestions.put("id_visit",id_visit);
+            objectQuestions.put("id_data_form",id_data_form);
+            arrayForms.put(objectQuestions);
+            String token      = Session.getSessionActive(getActivity()).getToken();
+            String username   = User.getUser(getActivity(), Session.getSessionActive(getActivity()).getUser_id()).getEmail();
+            dataForm.put("request", METHOD.SET_FORM.toString());
+            dataForm.put("user", username);
+            dataForm.put("token", token);
+            dataForm.put("form",arrayForms.toString());
+
+            getActivity().onBackPressed();
+            getActivity().onBackPressed();
+            prepareRequest(METHOD.SET_FORM,dataForm);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        Log.e("answer_form",array.toString());
-        Log.e("answer_form",object.toString());
-
 
     }
+
+    public String getNewTime(int hour, int minutes){
+
+        String newTime;
+
+        if(hour<10 && minutes <10) {
+            newTime = "0" + hour + ":0" + minutes;
+        }else if (minutes<10){
+            newTime = hour + ":0" + minutes;
+        }else if(hour<10){
+            newTime = "0" +hour + ":" + minutes;
+        }else{
+            newTime = hour + ":" + minutes;
+        }
+
+        return newTime;
+
+    }
+
+    public String getNewDate(int day, int month, int year){
+
+        String newDate;
+
+        if(day<10 && month <10) {
+            newDate = year + "-0" + (month + 1) + "-0" + day;
+        }else if (day<10){
+            newDate = year + "-" + (month + 1) + "-0" + day;
+        }else if(month<10){
+            newDate = year + "-0" + (month + 1) + "-" + day;
+        }else{
+            newDate = year + "-" + (month + 1) + "-" + day;
+        }
+
+        return newDate;
+
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.save:
-                Toast.makeText(getActivity(), "Enviado", Toast.LENGTH_SHORT).show();
                 sendDataForm();
                 break;
         }
@@ -397,7 +480,6 @@ public class FragmentForms extends Fragment implements UIResponseListenerInterfa
         params.put("request", method.toString());
         params.put("user", username);
         params.put("token", token);
-        params.put("id_visit",id_visit);
 
         //2
         RequestManager.sharedInstance().setListener(this);

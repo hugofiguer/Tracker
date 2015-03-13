@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.sellcom.tracker.R;
+import com.sellcom.tracker_interno.R;
 
 import java.util.ArrayList;
 import java.util.Calendar;
