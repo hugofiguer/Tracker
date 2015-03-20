@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -64,8 +65,6 @@ public class FragmentLogin extends Fragment implements View.OnClickListener, UIR
         txt_passwordUser = (EditText)view.findViewById(R.id.passwordUser);
         txt_passwordUser.setOnClickListener(this);
 
-        txt_emailUser.setText("markitos");
-        txt_passwordUser.setText("12345");
 
         return view;
     }
@@ -109,8 +108,14 @@ public class FragmentLogin extends Fragment implements View.OnClickListener, UIR
                 params.put("request", METHOD.LOGIN.toString());
                 params.put("user", textEmail);
                 params.put("password", textPassword);
-                params.put("hil_x",""+myLocation.getLatitude());
-                params.put("hil_y",""+myLocation.getLongitude());
+                try{
+                    params.put("hil_x",""+myLocation.getLatitude());
+                    params.put("hil_y",""+myLocation.getLongitude());
+                }catch (Exception e){
+                    Toast.makeText(getActivity(),"Por favor active su servicio de GPS para continuar ",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
 
                 //2
                 RequestManager.sharedInstance().setListener(this);
@@ -228,7 +233,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener, UIR
                         }
 
                     }else{
-
+                        Toast.makeText(getActivity(),"Usuario y/ó contraseñas no encontrados",Toast.LENGTH_SHORT).show();
                     }
 
             }
