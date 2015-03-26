@@ -112,7 +112,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener, UIR
                     params.put("hil_x",""+myLocation.getLatitude());
                     params.put("hil_y",""+myLocation.getLongitude());
                 }catch (Exception e){
-                    Toast.makeText(getActivity(),"Por favor active su servicio de GPS para continuar ",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), getActivity().getString(R.string.activate_gps_service), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -204,8 +204,6 @@ public class FragmentLogin extends Fragment implements View.OnClickListener, UIR
                         }
 
                         prepareRequest(METHOD.GET_USER_INFO,new HashMap<String, String>());
-                    }else{
-
                     }
 
 
@@ -232,8 +230,6 @@ public class FragmentLogin extends Fragment implements View.OnClickListener, UIR
                             e.printStackTrace();
                         }
 
-                    }else{
-                        Toast.makeText(getActivity(),"Usuario y/ó contraseñas no encontrados",Toast.LENGTH_SHORT).show();
                     }
 
             }

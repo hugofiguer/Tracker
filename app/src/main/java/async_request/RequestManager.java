@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.Window;
+import android.widget.Toast;
 
 import com.sellcom.tracker_interno.R;
 
@@ -42,8 +43,8 @@ public class RequestManager implements ResponseListenerInterface {
     public  final String LOG_TAG_MANAGER    = "requestManager";
     public  final String LOG_TAG_REQUEST    = "asyncRequest";
 
-    public  final String API_URL 	       = "http://10.10.100.18:8880/app_develop/Preventa-Central/";
-    //public  final String API_URL 	       = "http://187.237.42.162:8880/app_develop/Preventa-Central-master/api.php";
+    public  final String API_URL 	       = "http://10.10.100.18:8880/app_develop/Preventa-Central/api.php";
+    //public  final String API_URL 	       = "http://187.237.42.162:8880/app_develop/Preventa-Central/api.php";
     //public  final String API_URL 	       = "http://54.187.219.128/ragasa/sicmobile/api.php";  //Ragasa
 
 
@@ -140,6 +141,9 @@ public class RequestManager implements ResponseListenerInterface {
             case GET_FORM:
                 dialogMessage = activity.getString(R.string.req_man_downloading_form);
                 break;
+            case START_VISIT:
+                dialogMessage = activity.getString(R.string.req_man_starting_visit);
+                break;
             default:
                 break;
         }
@@ -174,6 +178,9 @@ public class RequestManager implements ResponseListenerInterface {
                 // Decode the json object
                 Log.e("ABCDEFG","EN RESPONSESERVICETOMANAGER");
                 listener.decodeResponse(jsonResponse.toString());
+                Log.e("ABCDEFG","EN RESPONSESERVICETOMANAGER222222222");
+            }else if(jsonResponse.getString("method").equalsIgnoreCase("login") && jsonResponse.getString("success").equalsIgnoreCase("false")){
+                Toast.makeText(getActivity(), getActivity().getString(R.string.user_pass_not_found), Toast.LENGTH_SHORT).show();
             }
         } catch (JSONException e) {
             e.printStackTrace();

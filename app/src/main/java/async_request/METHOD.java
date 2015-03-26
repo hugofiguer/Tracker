@@ -18,6 +18,7 @@ public enum METHOD {
     SEND_EVIDENCE("send_evidence"),
     GET_FORM("get_form"),
     SET_FORM("set_form"),
+    START_VISIT("start_visit"),
     LOGOUT ("logout")
     ;
 

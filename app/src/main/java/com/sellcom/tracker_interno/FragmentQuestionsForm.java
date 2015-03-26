@@ -194,7 +194,7 @@ public class FragmentQuestionsForm extends Fragment implements UIResponseListene
                     linearContainer.addView(view[i]);
 
                     String options = items[i].getAop_option();
-                    arrayMultipleOptions = options.split(",");
+                    arrayMultipleOptions = options.split(";");
 
                     ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(context,
                             android.R.layout.simple_spinner_dropdown_item,
@@ -275,7 +275,8 @@ public class FragmentQuestionsForm extends Fragment implements UIResponseListene
             e.printStackTrace();
         }
 
-
+        getActivity().onBackPressed();
+        getActivity().onBackPressed();
 
 
     }
@@ -398,8 +399,7 @@ public class FragmentQuestionsForm extends Fragment implements UIResponseListene
             dataForm.put("token", token);
             dataForm.put("form",arrayForms.toString());
 
-            getActivity().onBackPressed();
-            getActivity().onBackPressed();
+
             prepareRequest(METHOD.SET_FORM,dataForm);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -500,6 +500,8 @@ public class FragmentQuestionsForm extends Fragment implements UIResponseListene
                 if(resp.getString("success").equalsIgnoreCase("true")){
                     JSONArray jsonArray = resp.getJSONArray("get_form");
                     OnInit(jsonArray);
+                }else{
+
                 }
             }
 

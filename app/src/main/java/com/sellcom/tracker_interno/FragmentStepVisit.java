@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Button;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -89,11 +90,8 @@ public class FragmentStepVisit extends Fragment implements AdapterView.OnItemCli
         });
 
         btn_finish_visit = (Button)view.findViewById(R.id.btn_finish_visit);
-        try {
-            objectOmission = new JSONObject(jsonObjectActivities);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+
+
         btn_finish_visit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -151,7 +149,7 @@ public class FragmentStepVisit extends Fragment implements AdapterView.OnItemCli
         bundle.putString("id_visit",id_visit);
 
 
-        if(!id_visit.equals("") && jsonObjectActivities != null){
+        if(id_visit.equals("") == false && jsonObjectActivities != null){
 
             switch(position){
                 case 0:
@@ -176,6 +174,7 @@ public class FragmentStepVisit extends Fragment implements AdapterView.OnItemCli
 
                         // Create the AlertDialog object and return it
                         builder.setIcon(R.drawable.ic_action_warning);
+                        builder.setCancelable(false);
                         builder.show();
                         ((MainActivity) getActivity()).depthCounter = 4;
                     }
@@ -207,7 +206,7 @@ public class FragmentStepVisit extends Fragment implements AdapterView.OnItemCli
             fragmentTransaction.commit();
 
         }else{
-            Utilities.showErrorDialog(getActivity().getString(R.string.req_man_error_contacting_service), this.getActivity());
+            Toast.makeText(getActivity(),"No tiene visitas o formularios asignados, pongase en contacto con el administrador",Toast.LENGTH_LONG).show();
         }
 
 
@@ -252,32 +251,36 @@ public class FragmentStepVisit extends Fragment implements AdapterView.OnItemCli
 
         try {
             resp        = new JSONObject(stringResponse);
-
+            objectOmission = new JSONObject(jsonObjectActivities);
             if(resp.getString("method").equalsIgnoreCase(METHOD.GET_ACTIVITIES.toString())){
 
-                JSONArray act_array = resp.getJSONArray("info_activities");
-                String strArray     = act_array.toString();
+                if(resp.getString("success").equalsIgnoreCase("true")){
+                    JSONArray act_array = resp.getJSONArray("info_activities");
+                    String strArray     = act_array.toString();
 
-                try {
-                    JSONArray jsonArray = new JSONArray(strArray);
+                    try {
+                        JSONArray jsonArray = new JSONArray(strArray);
 
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject object          = jsonArray.getJSONObject(i);
-                        elementsList.add(RequestManager.sharedInstance().jsonToMap(object));
-                        Log.e("acv_time",""+Integer.parseInt(elementsList.get(i).get("acv_time")));
-                        if(Integer.parseInt(elementsList.get(i).get("acv_time"))==0){
-                            flag = true;
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject object          = jsonArray.getJSONObject(i);
+                            elementsList.add(RequestManager.sharedInstance().jsonToMap(object));
+                            Log.e("acv_time",""+Integer.parseInt(elementsList.get(i).get("acv_time")));
+                            if(Integer.parseInt(elementsList.get(i).get("acv_time"))==0){
+                                flag = true;
+                            }
                         }
-                    }
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    Toast.makeText(getActivity(), "No hay Actividades", Toast.LENGTH_SHORT).show();
                 }
+
 
             }
         } catch (JSONException e) {
             e.printStackTrace();
-            Utilities.showErrorDialog(getActivity().getString(R.string.req_man_error_contacting_service), this.getActivity());
         }
 
     }

@@ -217,17 +217,35 @@
                 android:orientation="horizontal">
 
 
-                <Button
+                <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginRight="5dp"
                     android:layout_weight="80"
-                    android:text="@string/wp_start"
-                    android:textSize="@dimen/sizeMediumText"
-                    android:textColor="@color/light_gray"
-                    android:background="@drawable/border_button_green"
-                    android:id="@+id/workP_buttonIniciar" />
+                    >
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/wp_continue"
+                        android:textSize="@dimen/sizeMediumText"
+                        android:textColor="@color/light_gray"
+                        android:background="@drawable/border_button_green"
+                        android:id="@+id/btn_continue"
+                        android:visibility="gone"/>
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/wp_start"
+                        android:textSize="@dimen/sizeMediumText"
+                        android:textColor="@color/light_gray"
+                        android:background="@drawable/border_button_green"
+                        android:id="@+id/workP_buttonIniciar"/>
+
+
+
+                </FrameLayout>
 
 
             </TableRow>

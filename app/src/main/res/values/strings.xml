@@ -29,6 +29,7 @@
     <string name="user">User</string>
     <string name="logging_in">Logging in…</string>
     <string name="title_activity_tracker">Tracker</string>
+    <string name="user_pass_not_found">Username and/or Password not found</string>
 
     <!-- RequestManager strings -->
     <string name="req_man_error_contacting_service">Error contacting service</string>
@@ -42,7 +43,7 @@
     <string name="req_man_sending_evidence">Sending Evidence, \nIt may take a few minutes</string>
     <string name="req_man_downloading_user_information">Downloading User Information</string>
     <string name="req_man_downloading_form">Downloading Form</string>
-
+    <string name="req_man_starting_visit">Stating Visit</string>
     <!-- Error messages -->
     <string name="error_empty_field">Complete this field</string>
     <string name="error_invalid_tax_value">Tax is too high</string>
@@ -128,7 +129,7 @@
     <string name="wp_item_hour">HOUR: </string>
     <string name="wp_item_status">STATUS: </string>
     <string name="status_scheduled">Scheduled</string>
-    <string name="status_rescheduled">Rescheduled</string>
+    <string name="status_process">In Process</string>
     <string name="wp_start"> Start </string>
 
     <!-- Customer Work Plan -->
@@ -137,17 +138,19 @@
     <string name="wp_address"> ADDRESS  </string>
     <string name="initial_scheduled_date">INITIAL SCHEDULED DATE</string>
     <string name="scheduled_end_date">SCHEDULED END DATE</string>
+    <string name="wp_continue">CONTINUE</string>
 
     <!-- Visit Activities -->
     <string name="activity_header">ACTIVITIES</string>
-    <string name="new_date">New Date</string>
-    <string name="new_time">New Time</string>
+    <string name="new_start_date">New Date</string>
+    <string name="new_start_time">New Start Time</string>
+    <string name="new_end_time">New End Time</string>
     <string name="accept">Accept</string>
     <string name="finished_activity">Finished activity</string>
 
     <!-- Rescheduled Visit -->
     <string name="title_dialog_message">Check it</string>
-    <string name="message_reschedule_visit">The date should not be earlier than today</string>
+    <string name="message_reschedule_visit">The date should not be earlier than or equal to today</string>
     <string name="rescheduled_visit">Rescheduled visit</string>
 
     <!-- Steps Visit / Pasos de la Visita -->
@@ -174,5 +177,9 @@
     <!-- fragment_forms -->
     <string name="mandatory">Mandatory</string>
     <string name="optional">Optional</string>
+
+    <!-- String General -->
+    <string name="activate_gps_service">Please activate your GPS service to continue</string>
+
 
 </resources>

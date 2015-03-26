@@ -202,7 +202,7 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     public void onBackPressed() {
-
+/*
         try {
             String file = Environment.getExternalStorageDirectory().getAbsolutePath() + "/"+".photo";
             File dir = new File(file);
@@ -217,12 +217,15 @@ public class MainActivity extends ActionBarActivity
         }catch(Exception e){
             e.printStackTrace();
         }
+*/
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment workplan  = fragmentManager.findFragmentByTag(FragmentWorkPlan.TAG);
+        Fragment customerWorkPlan  = fragmentManager.findFragmentByTag(FragmentCustomerWorkPlan.TAG);
+        Fragment stepVisit  = getSupportFragmentManager().findFragmentByTag(FragmentStepVisit.TAG);
+
+
 
         if (depthCounter == 1) {
-
-            FragmentManager fragmentManager = getSupportFragmentManager();
-
-            Fragment workplan  = fragmentManager.findFragmentByTag(FragmentWorkPlan.TAG);
 
 
             if(workplan != null && workplan.isAdded()){
@@ -233,10 +236,29 @@ public class MainActivity extends ActionBarActivity
         } else {
 
             Fragment home = getSupportFragmentManager().findFragmentByTag("home");
+
+
+
             if(home != null && home.isAdded()){
                 //Session.closeSession(getApplicationContext());
+
                 moveTaskToBack(true);
-            } else
+            }else if(stepVisit != null && stepVisit.isAdded()){
+
+                fragment = new FragmentWorkPlan();
+
+                fragmentManager.beginTransaction().remove(stepVisit);
+                fragmentManager.beginTransaction().remove(customerWorkPlan);
+                fragmentManager.beginTransaction().remove(workplan);
+                fragmentManager.beginTransaction().commit();
+
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.slide_from_right, R.anim.shrink_out, R.anim.slide_from_left, R.anim.shrink_out);
+                fragmentTransaction.replace(R.id.container, fragment, FragmentWorkPlan.TAG);
+                fragmentTransaction.commit();
+
+                depthCounter = 2;
+            }else
                 super.onBackPressed();
         }
 

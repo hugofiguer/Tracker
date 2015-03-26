@@ -59,6 +59,7 @@ public class FragmentEvidence extends Fragment implements UIResponseListenerInte
     private static final int THUMBNAIL_ID = 1;
     private Bitmap image;
     private Uri mImageUri = null;
+    private Intent intent;
 
 
     @Override
@@ -282,21 +283,28 @@ public class FragmentEvidence extends Fragment implements UIResponseListenerInte
         if(!packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)){
             Toast.makeText(context, "This device does not have a camera.", Toast.LENGTH_SHORT) .show();
         }else {
-            // create Intent to take a picture and return control to the calling application
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            File photoFile = null;
+                // create Intent to take a picture and return control to the calling application
             try {
-                photoFile = new File(nameFile);
-                photoFile.createNewFile();
-            } catch (Exception ex) {
-                ex.printStackTrace();
+                File photoFile = null;
+                try {
+                    photoFile = new File(nameFile);
+                    photoFile.createNewFile();
+                    intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(context, "Necesita tener espacio libre en la memoria para completar esta accion", Toast.LENGTH_SHORT).show();
+                }
+
+
+                if (photoFile != null) {
+                    mImageUri = Uri.fromFile(photoFile); // create a file to save the image
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, mImageUri); // set the image file name
+                    startActivityForResult(intent, THUMBNAIL_ID);
+                }
+            }catch(Exception e){
+                e.printStackTrace();
             }
 
-            if (photoFile != null) {
-                mImageUri = Uri.fromFile(photoFile); // create a file to save the image
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, mImageUri); // set the image file name
-                startActivityForResult(intent, THUMBNAIL_ID);
-            }
         }
     }
 

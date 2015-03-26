@@ -57,8 +57,8 @@ public class Utilities {
             case 1: //Agendada
                 typeStatus = activity.getString(R.string.status_scheduled);
                 break;
-            case 2: // Reagendada
-                typeStatus = activity.getString(R.string.status_rescheduled);
+            case 2: // En Proceso
+                typeStatus = activity.getString(R.string.status_process);
                 break;
             default:
                 break;

@@ -202,19 +202,30 @@ public class FragmentWorkPlan extends Fragment implements UIResponseListenerInte
 
                 Bundle bundle = new Bundle();
                 bundle.putString("response",obj.toString());
+                bundle.putString("id_visit",selectedData.get("id_visit"));
 
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragment = new FragmentCustomerWorkPlan();
-                fragment.setArguments(bundle);
 
                 Log.e("En WORKPLAN","----------------------------------");
 
+                fragment = new FragmentCustomerWorkPlan();
+
+
+                if(utilities.getTypeStatus(selectedData.get("id_visit_status")).equals(getString(R.string.status_process))){
+                    bundle.putBoolean("process",true);
+
+                }else{
+
+                    bundle.putBoolean("process",false);
+                }
+
+
+                fragment.setArguments(bundle);
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.slide_from_right, R.anim.shrink_out, R.anim.slide_from_left, R.anim.shrink_out);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.replace(R.id.container, fragment, FragmentCustomerWorkPlan.TAG);
                 fragmentTransaction.commit();
-
                 ((MainActivity) getActivity()).depthCounter = 2;
             }
 
@@ -282,7 +293,7 @@ public class FragmentWorkPlan extends Fragment implements UIResponseListenerInte
             TextView txtAux = (TextView) convertView.findViewById(R.id.txv_clients_preview_num);
             txtAux.setText(""+real_position);
             txtAux.setBackgroundResource(R.color.green);
-            if(utilities.getTypeStatus(childData.get("id_visit_status")).equals(getString(R.string.status_rescheduled))){
+            if(utilities.getTypeStatus(childData.get("id_visit_status")).equals(getString(R.string.status_process))){
                 txtAux.setBackgroundResource(R.color.reschedule_visit);
             }
 
@@ -300,30 +311,11 @@ public class FragmentWorkPlan extends Fragment implements UIResponseListenerInte
                 public void onClick(View v) {
                     //Toast.makeText(context, "Clicked on Detail " + childPosition, Toast.LENGTH_LONG).show();
                     boolean fromWS = true;
-                    if (fromWS){
                         selectedData                    = childData;
                         final Map<String, String> params = new HashMap<String, String>();
                         params.put("id_visit", childData.get("id_visit"));
                         prepareRequest(METHOD.GET_INFO_VISIT,params);
-                    }
-                    else{
-                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                        fragment = new FragmentCustomerWorkPlan();
 
-                        Bundle bundle = new Bundle();
-
-                        JSONObject obj=new JSONObject(childData);
-                        bundle.putString("pdv",obj.toString());
-
-                        fragment.setArguments(bundle);
-
-                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.setCustomAnimations(R.anim.slide_from_right, R.anim.shrink_out, R.anim.slide_from_left, R.anim.shrink_out);
-                        fragmentTransaction.addToBackStack(null);
-                        fragmentTransaction.replace(R.id.container, fragment, FragmentCustomerWorkPlan.TAG);
-                        fragmentTransaction.commit();
-                    }
-                    ((MainActivity) getActivity()).depthCounter = 2;
 
                 }
             });

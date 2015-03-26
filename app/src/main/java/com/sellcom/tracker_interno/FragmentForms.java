@@ -1,6 +1,8 @@
 package com.sellcom.tracker_interno;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -95,6 +98,23 @@ public class FragmentForms extends Fragment implements UIResponseListenerInterfa
 
             }
 
+            if(listForms.isEmpty()){
+                final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage("\n \n No hay formularios \n" +
+                        " \n")
+                        .setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                dialog.dismiss();
+                                getActivity().onBackPressed();
+                            }
+                        });
+
+                // Create the AlertDialog object and return it
+                builder.setIcon(R.drawable.ic_action_warning);
+                builder.setCancelable(false);
+                builder.show();
+            }
             formsAdapter = new FormsAdapter(getActivity(),listForms);
             listViewForms.setAdapter(formsAdapter);
 
@@ -170,7 +190,11 @@ public class FragmentForms extends Fragment implements UIResponseListenerInterfa
                 if(resp.getString("success").equalsIgnoreCase("true")){
                     JSONArray jsonArray = resp.getJSONArray("get_form");
                     OnInit(jsonArray);
-                }
+                }else{
+                    Toast.makeText(getActivity(),"No hay formularios",Toast.LENGTH_SHORT).show();
+               }
+            }else{
+                Toast.makeText(getActivity(),"No hay formularios",Toast.LENGTH_SHORT).show();
             }
 
         }catch (JSONException e){
