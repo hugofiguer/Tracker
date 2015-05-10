@@ -5,21 +5,49 @@
     android:gravity="center"
     android:background="@color/app_color">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sizeLargeText"
+        android:textStyle="bold"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:text="@string/omitted_activities"
+        android:gravity="center"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@android:color/white"/>
+
     <ListView
         android:id="@+id/lv_omission_reason"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/border_button_green"
-        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
         android:layout_marginBottom="5dp"
-        android:paddingRight="20dp"
-        android:paddingLeft="20dp"
-        android:textSize="@dimen/sizeMediumText"
-        android:text="Enviar"/>
+        android:gravity="center"
+        android:weightSum="100">
+
+        <Button
+            android:id="@+id/btn_send_omission_activities"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:background="@drawable/border_button_green"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:textSize="@dimen/sizeMediumText"
+            android:text="Enviar"/>
+        </LinearLayout>
+
+
 
 
 </LinearLayout>

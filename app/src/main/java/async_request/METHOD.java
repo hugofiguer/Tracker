@@ -19,6 +19,7 @@ public enum METHOD {
     GET_FORM("get_form"),
     SET_FORM("set_form"),
     START_VISIT("start_visit"),
+    OMISSION_ACTIVITY("omission_activity"),
     LOGOUT ("logout")
     ;
 

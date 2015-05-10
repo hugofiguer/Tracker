@@ -178,5 +178,9 @@
     <!-- String General -->
     <string name="activate_gps_service">Por favor, active su servicio de GPS para continuar</string>
 
+    <!-- FragmentDialogOmissionReason -->
+    <string name="omitted_activities">Actividades Omitidas</string>
+    <string name="omission_reason">Motivo de Omisión</string>
+
 
 </resources>

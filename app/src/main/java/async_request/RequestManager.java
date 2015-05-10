@@ -43,8 +43,8 @@ public class RequestManager implements ResponseListenerInterface {
     public  final String LOG_TAG_MANAGER    = "requestManager";
     public  final String LOG_TAG_REQUEST    = "asyncRequest";
 
-    public  final String API_URL 	       = "http://10.10.100.18:8880/app_develop/Preventa-Central/api.php";
-    //public  final String API_URL 	       = "http://187.237.42.162:8880/app_develop/Preventa-Central/api.php";
+    //public  final String API_URL 	       = "http://10.10.100.18:8880/app_develop/Preventa-Central/api.php";
+    public  final String API_URL 	       = "http://187.237.42.162:8880/app_develop/Preventa-Central/api.php";
     //public  final String API_URL 	       = "http://54.187.219.128/ragasa/sicmobile/api.php";  //Ragasa
 
 

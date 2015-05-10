@@ -181,5 +181,8 @@
     <!-- String General -->
     <string name="activate_gps_service">Please activate your GPS service to continue</string>
 
+    <!-- FragmentDialogOmissionReason -->
+    <string name="omitted_activities">Omitted Activities</string>
+    <string name="omission_reason">Omission Reason</string>
 
 </resources>

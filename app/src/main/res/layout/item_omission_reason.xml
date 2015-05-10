@@ -32,10 +32,10 @@
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             android:textColor="@color/light_gray"
-            android:text="Motivo de Omision"
+            android:text="@string/omission_reason"
             android:layout_marginBottom="5dp"
             android:padding="5dp"
-            android:textSize="@dimen/sizeMediumText"/>
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
 
         <EditText
             android:id="@+id/edt_omission_reason"

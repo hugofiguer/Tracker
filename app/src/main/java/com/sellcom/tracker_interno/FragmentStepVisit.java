@@ -38,22 +38,27 @@ import util.Utilities;
 
 public class FragmentStepVisit extends Fragment implements AdapterView.OnItemClickListener, UIResponseListenerInterface {
 
-    final static public String TAG = "TAG_FRAGMENT_STEP_VISIT";
-    private Context context;
-    private Button getWorkPlan_Reasignar,btn_finish_visit;
-    Fragment fragment;
-    private FragmentManager fragmentManager;
-    private String id_visit,jsonObjectActivities = null;
-    List<Map<String,String>> elementsList;
-    private boolean flag = false;
-    List<Map<String,String>> omission_reason;
-    Map<String,String>      data_omission_reason;
-    JSONObject objectOmission;
+    final static public String          TAG                     = "TAG_FRAGMENT_STEP_VISIT";
+    private Context                     context;
+    private Button                      getWorkPlan_Reasignar,
+                                        btn_finish_visit;
+    Fragment                            fragment;
+    private FragmentManager             fragmentManager;
+    private String                      id_visit,
+                                        jsonObjectActivities = null;
+    private List<Map<String,String>>    elementsList;
+    private boolean                     flag = false,
+                                        flag_omission = false;
+
+    private JSONArray                   arrayObjectOmission;
+    private Bundle                      bundleOmission;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getActivity().getApplicationContext();
+        bundleOmission = new Bundle();
     }
 
     @Override
@@ -64,7 +69,7 @@ public class FragmentStepVisit extends Fragment implements AdapterView.OnItemCli
 
         fragmentManager = getActivity().getSupportFragmentManager();
         elementsList   = new ArrayList<Map<String, String>>();
-        omission_reason = new ArrayList<Map<String, String>>();
+
 
         id_visit = getArguments().getString("id_visit");
 
@@ -95,22 +100,39 @@ public class FragmentStepVisit extends Fragment implements AdapterView.OnItemCli
         btn_finish_visit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                try {
+                    for(int i = 0; i < arrayObjectOmission.length(); i++){
 
-                for(int i = 0; i < objectOmission.length(); i++){
 
-                    data_omission_reason = new HashMap<String, String>();
-                    try {
-                        data_omission_reason.put("act_name",objectOmission.getString("act_name"));
-                        data_omission_reason.put("id_activity",objectOmission.getString("id_activity"));
-                        data_omission_reason.put("acv_time",objectOmission.getString("acv_time"));
+                        /*data_omission_reason = new HashMap<String, String>();
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                            data_omission_reason.put("act_name",objectOmission.getString("act_name"));
+                            data_omission_reason.put("id_activity",objectOmission.getString("id_activity"));
+                            data_omission_reason.put("acv_time",objectOmission.getString("acv_time"));
+                        */
+                            if(Integer.parseInt(arrayObjectOmission.getJSONObject(i).getString("acv_time"))==0){
+                                flag_omission = true;
+                                //omission_reason.add(data_omission_reason);
+                            }
+
                     }
-
-                    omission_reason.add(data_omission_reason);
-
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
+
+
+                if(flag_omission){
+                    bundleOmission.putString("info_omission_activities",arrayObjectOmission.toString());
+                    bundleOmission.putString("id_visit",id_visit);
+
+                    FragmentDialogOmissionReason fragmentDialogOmissionReason = new FragmentDialogOmissionReason();
+                    fragmentDialogOmissionReason.setArguments(bundleOmission);
+                    fragmentDialogOmissionReason.show(fragmentManager,FragmentDialogOmissionReason.TAG);
+
+                }else{
+                    //TODAS LAS ACTIVIDADES SE COMPLETARON CORRECTAMENTE
+                }
+
 
             }
         });
@@ -251,7 +273,6 @@ public class FragmentStepVisit extends Fragment implements AdapterView.OnItemCli
 
         try {
             resp        = new JSONObject(stringResponse);
-            objectOmission = new JSONObject(jsonObjectActivities);
             if(resp.getString("method").equalsIgnoreCase(METHOD.GET_ACTIVITIES.toString())){
 
                 if(resp.getString("success").equalsIgnoreCase("true")){
@@ -260,6 +281,7 @@ public class FragmentStepVisit extends Fragment implements AdapterView.OnItemCli
 
                     try {
                         JSONArray jsonArray = new JSONArray(strArray);
+                        arrayObjectOmission = jsonArray;
 
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject object          = jsonArray.getJSONObject(i);
@@ -277,6 +299,14 @@ public class FragmentStepVisit extends Fragment implements AdapterView.OnItemCli
                     Toast.makeText(getActivity(), "No hay Actividades", Toast.LENGTH_SHORT).show();
                 }
 
+
+            }else if(resp.getString("method").equalsIgnoreCase(METHOD.OMISSION_ACTIVITY.toString())){
+
+                if(resp.getString("success").equalsIgnoreCase("true")){
+
+                }else{
+
+                }
 
             }
         } catch (JSONException e) {
